@@ -1,11 +1,12 @@
 "use client"
 import { useState, useEffect } from "react";
+import { useRouter } from 'next/navigation';
 export default function Home() {
 
   const [bldmodel, setbldmodel]= useState({})
   const [bld, setbld]=useState([])
   const [alert, setalert] = useState("")
-  
+  const router = useRouter();
 useEffect(() => {
   const fetchbuild= async () => {
     const response= await fetch('api/building')
@@ -23,6 +24,9 @@ const onchange=(e) => {
   
 }
 
+const handleClick = (bname) => {
+  router.push(`/renter?bnm=${bname}`);
+};
 
 const addbuilding = async (e) => {
   setalert("Adding Building...")
@@ -63,9 +67,7 @@ console.error('Error:',error);
       <div className="text-green-600 text-center">{alert}</div>
     <h1>All Buildings</h1>
     {bld.map(b=>{
-   return <div key={b.Bname}><p>The building name : {b.Bname} is owned by {b.owner}.</p>
-   </div> 
-   
+      return <div key={b.Bname}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(b.Bname)}>The building name : {b.Bname} is owned by {b.owner}.</button> </div> 
   })}
     </>
   );

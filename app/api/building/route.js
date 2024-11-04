@@ -18,7 +18,6 @@ const client = new MongoClient(uri);
     const query = {  };
     const Build = await bldngs.find(query).toArray();
 
-    console.log(Build);
     return NextResponse.json({success:true,Build})
   } finally {
     // Ensures that the client will close when you finish/error
@@ -31,7 +30,7 @@ export async function POST(request) {
   // Replace the uri string with your connection string.
   const uri = "mongodb+srv://mymarveluniverse108:UBDtVPAORAqwXmuZ@nextjs-cluster.tasg4.mongodb.net/";
   let bld= await request.json()
-  
+  console.log(bld)
   const client = new MongoClient(uri);
     try {
       const database = client.db('BuildingsDB');
