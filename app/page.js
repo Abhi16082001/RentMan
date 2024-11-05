@@ -6,6 +6,7 @@ export default function Home() {
   const [bldmodel, setbldmodel]= useState({})
   const [bld, setbld]=useState([])
   const [alert, setalert] = useState("")
+  const [dalert, setdalert] = useState("")
   const router = useRouter();
 useEffect(() => {
   const fetchbuild= async () => {
@@ -27,6 +28,39 @@ const onchange=(e) => {
 const handleClick = (bname) => {
   router.push(`/renter?bnm=${bname}`);
 };
+
+const handledit=(bname,owner) => {
+  router.push(`/editbuilding?bnm=${bname}&owner=${owner}`);
+}
+
+
+// In your component file
+
+const deletebuilding = async (bname) => {
+  setdalert(`Deleting Building : ${bname}...`)
+  console.log(JSON.stringify({ bname }))
+  try {
+      const response = await fetch('/api/building', {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ bname }), // Send the ID in the request body
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+          throw new Error(data.message || 'Failed to delete the Building');
+      }
+
+      console.log(data.message); // Log success message
+      setdalert(` Building : ${bname} deleted successfully.`)
+  } catch (erro) {
+      console.log('Error:', erro);
+  }
+};
+
+
 
 const addbuilding = async (e) => {
   setalert("Adding Building...")
@@ -67,8 +101,9 @@ console.error('Error:',error);
       <div className="text-green-600 text-center">{alert}</div>
     <h1>All Buildings</h1>
     {bld.map(b=>{
-      return <div key={b.Bname}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(b.Bname)}>The building name : {b.Bname} is owned by {b.owner}.</button> </div> 
+      return <div key={b.Bname}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(b.Bname)}>The building name : {b.Bname} is owned by {b.owner}.</button> <button className="bg-green-500" onClick={() => handledit(b.Bname,b.owner)}>Edit</button> <button className="bg-red-500" onClick={() => deletebuilding(b.Bname)}>Delete</button> </div> 
   })}
+   <div className="text-red-600 text-center">{dalert}</div>
     </>
   );
 }
