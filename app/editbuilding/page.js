@@ -3,15 +3,18 @@ import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 export default function Page()  {
     const searchParams = useSearchParams();
-    const bnm = searchParams.get('bnm');
-    const own = searchParams.get('owner');
-    const [bldmodel, setbldmodel]= useState({Bname:bnm,owner:own})
+    const bobj = searchParams.get('bobj');
+    // const own = searchParams.get('owner');
+    // const bid = searchParams.get('bid');
+    const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
+    const bid=dbobj.id
+    const [bldmodel, setbldmodel]= useState({Bname:dbobj.bname,owner:dbobj.own})
     const [alert, setalert] = useState("")
   
     const updatebuilding = async (e) => {
         setalert("Updating Building...")
         e.preventDefault();
-        const co = { bnm,...bldmodel }; 
+        const co = { bid,...bldmodel }; 
         console.log(bldmodel)
         console.log(co)
         try{
