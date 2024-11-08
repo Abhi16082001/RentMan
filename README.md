@@ -1,36 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Overview
+This is a Next.js project designed for managing **Renters** and **Floors** within an **Apartment** or **Building**. The core functionality has been implemented, but the application is currently unstyled (CSS and other design elements will be added in the future).
 
-## Getting Started
+# Features
+1. **Building and Floor Management**: 
+   - You can create **Buildings/Apartments** and add **Floors** within them.
+2. **Renter Management**:
+   - Renters can be added to specific floors. 
+   - For each renter, you can maintain **Rent Details** for any given month.
+3. **Delete Restrictions**:
+   - Floors can only be deleted if they do not have any renters.
+   - Buildings can only be deleted when there are no floors within them.
 
-First, run the development server:
+The application’s backend functionality is complete, and you can explore the code for further details.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Future Enhancements
+Styling and CSS will be added to improve the user interface and experience.
