@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import { useSearchParams } from 'next/navigation';
-import { useState,Suspense } from 'react';
+import { useState,Suspense,useEffect} from 'react';
 export default function Page()  {
   // <Suspense fallback={<div>Loading...</div>}>
   //   const searchParams = useSearchParams();
@@ -10,14 +10,14 @@ export default function Page()  {
   //   // const bid = searchParams.get('bid');
   //   const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
   //   </Suspense>
-    const bid=dbobj.id
+    // const bid=dbobj.id
     const [bldmodel, setbldmodel]= useState(null)
     const [alert, setalert] = useState("")
   
     const updatebuilding = async (e) => {
         setalert("Updating Building...")
         e.preventDefault();
-        const co = { bid,...bldmodel }; 
+        const co = {...bldmodel }; 
         console.log(bldmodel)
         console.log(co)
         try{
@@ -79,7 +79,7 @@ function LoadParams({ setDbobj }) {
       const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
       // const dbobj = JSON.parse(decodeURIComponent(bobj));
       setDbobj(
-        {Bname:dbobj.bname,owner:dbobj.own}
+        {bid:dbobj.id,Bname:dbobj.bname,owner:dbobj.own}
       );
     }}, [bobj, setDbobj]);
 
