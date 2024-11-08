@@ -88,6 +88,7 @@ const addbuilding = async (e) => {
     }
     else{
       console.log("Error adding Building !!")
+      setalert("Error in adding Building !!")
     }
   }
   catch(error){
