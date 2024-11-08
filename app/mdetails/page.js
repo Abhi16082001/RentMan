@@ -5,18 +5,14 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-// const page = () => {
-//   return (
-//     <div>
-      
-//     </div>
-//   )
-// }
-
-// export default page
+const page = () => {
+ 
 
 
-export default function page() {
+
+
+
+// export default function page() {
     const router = useRouter();
     const [dalert, setdalert] = useState()
     const searchParams = useSearchParams();
@@ -159,5 +155,5 @@ export default function page() {
   {/* <button className='bg-blue-500' onClick={() => handladdm()}>Add New Month</button> */}
 </>
 
-    );
-}
+    );}
+    export default page
