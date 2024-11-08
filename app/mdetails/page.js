@@ -1,7 +1,21 @@
 "use client"
+
+import React from 'react'
 import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+
+// const page = () => {
+//   return (
+//     <div>
+      
+//     </div>
+//   )
+// }
+
+// export default page
+
+
 export default function page() {
     const router = useRouter();
     const [dalert, setdalert] = useState()
