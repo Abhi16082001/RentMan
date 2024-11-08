@@ -3,7 +3,7 @@ import React from 'react'
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-export default function Home() {
+export default function Page() {
     const searchParams = useSearchParams();
     const eobj = searchParams.get('eobj');
     const deobj = eobj ? JSON.parse(decodeURIComponent(eobj)) : null;

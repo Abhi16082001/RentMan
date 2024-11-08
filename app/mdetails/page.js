@@ -5,14 +5,14 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-const page = () => {
+// const page = () => {
  
 
 
 
 
 
-// export default function page() {
+export default function Page() {
     const router = useRouter();
     const [dalert, setdalert] = useState()
     const searchParams = useSearchParams();
@@ -156,4 +156,4 @@ const page = () => {
 </>
 
     );}
-    export default page
+    // export default page
