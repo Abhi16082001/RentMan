@@ -15,6 +15,12 @@ useEffect(() => {
     let bjson= await response.json()
     console.log(bjson.Build)
     setbld(bjson.Build)
+    if(bjson.Build.length==0){
+      setalert("No Buildings Added")
+    }
+    
+
+
   }
   fetchbuild()
   
