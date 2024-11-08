@@ -1,14 +1,16 @@
 "use client"
 import React from 'react'
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from 'react';
-
+import { useState,useEffect} from 'react';
+import { Suspense } from 'react';
 export default function Page() {
-    const searchParams = useSearchParams();
-    const eobj = searchParams.get('eobj');
-    const deobj = eobj ? JSON.parse(decodeURIComponent(eobj)) : null;
+  // <Suspense fallback={<div>Loading...</div>}>
+  //   const searchParams = useSearchParams();
+  //   const eobj = searchParams.get('eobj');
+  //   const deobj = eobj ? JSON.parse(decodeURIComponent(eobj)) : null;
+  //   </Suspense>
     // const [dmodel, setdmodel]= useState({Rname:deobj.Rname,floor:deobj.Bdetails.floor,rent:deobj.rent,bill:deobj.bill,month:deobj.month})
-    const [dmodel, setdmodel] = useState({...deobj})
+    const [dmodel, setdmodel] = useState(null)
     const [alert, setalert] = useState("")
     const onchanger=(e) => {
         setdmodel({...dmodel,[e.target.name]:e.target.value})
@@ -68,8 +70,12 @@ export default function Page() {
 
 return (
     <>
-    <p>Floor: {dmodel.Bdetails.floor}</p>
-    <p>Month: {dmodel.month}</p>
+<Suspense fallback={<div>Loading...</div>}>
+        <LoadParams setDbobj={setdmodel} />
+      </Suspense>
+
+    <p>Floor: {dmodel?dmodel.Bdetails.floor:"Loading..."}</p>
+    <p>Month: {dmodel?dmodel.month:"Loading..."}</p>
     <form>
   
         <label htmlFor="Rname">Renter Name:</label>
@@ -101,4 +107,23 @@ return (
     
     </>
 );
+}
+
+function LoadParams({ setDbobj }) {
+  const searchParams = useSearchParams();
+  const eobj = searchParams.get('eobj');
+
+ 
+  // const own = searchParams.get('owner');
+  // const bid = searchParams.get('bid');
+  useEffect(() => {
+    if (eobj) {
+      const deobj = eobj ? JSON.parse(decodeURIComponent(eobj)) : null;
+      // const dbobj = JSON.parse(decodeURIComponent(bobj));
+      setDbobj(
+        {...deobj}
+      );
+    }}, [eobj, setDbobj]);
+
+  return null;
 }

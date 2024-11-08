@@ -1,15 +1,17 @@
 "use client"
 import React from 'react'
 import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
+import { useState,Suspense } from 'react';
 export default function Page()  {
-    const searchParams = useSearchParams();
-    const bobj = searchParams.get('bobj');
-    // const own = searchParams.get('owner');
-    // const bid = searchParams.get('bid');
-    const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
+  // <Suspense fallback={<div>Loading...</div>}>
+  //   const searchParams = useSearchParams();
+  //   const bobj = searchParams.get('bobj');
+  //   // const own = searchParams.get('owner');
+  //   // const bid = searchParams.get('bid');
+  //   const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
+  //   </Suspense>
     const bid=dbobj.id
-    const [bldmodel, setbldmodel]= useState({Bname:dbobj.bname,owner:dbobj.own})
+    const [bldmodel, setbldmodel]= useState(null)
     const [alert, setalert] = useState("")
   
     const updatebuilding = async (e) => {
@@ -46,6 +48,11 @@ export default function Page()  {
 
 
   return (<>
+
+<Suspense fallback={<div>Loading...</div>}>
+        <LoadParams setDbobj={setbldmodel} />
+      </Suspense>
+
     <div>Edit the building:</div>
     <form>
         <label htmlFor="Bname">Building Name</label>
@@ -61,3 +68,20 @@ export default function Page()  {
 }
 
 
+function LoadParams({ setDbobj }) {
+
+  const searchParams = useSearchParams();
+  const bobj = searchParams.get('bobj');
+  // const own = searchParams.get('owner');
+  // const bid = searchParams.get('bid');
+  useEffect(() => {
+    if (bobj) {
+      const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
+      // const dbobj = JSON.parse(decodeURIComponent(bobj));
+      setDbobj(
+        {Bname:dbobj.bname,owner:dbobj.own}
+      );
+    }}, [bobj, setDbobj]);
+
+  return null;
+}

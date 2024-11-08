@@ -1,14 +1,17 @@
 "use client"
 import React from 'react'
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 export default function Page() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const mobj = searchParams.get('mobj');
-  const dmobj = mobj ? JSON.parse(decodeURIComponent(mobj)) : null;
-    
+  const [dmobj, setdmobj] = useState(null)
+  // <Suspense fallback={<div>Loading...</div>}>
+  // const searchParams = useSearchParams();
+  // const mobj = searchParams.get('mobj');
+  // const dmobj = mobj ? JSON.parse(decodeURIComponent(mobj)) : null;
+  // </Suspense>
     // const [bld, setbld]=useState({})
     // const [rid, setrid] = useState()
     // const [bid, setbid] = useState()
@@ -50,26 +53,48 @@ export default function Page() {
 
   return (
     <>
-
+<Suspense fallback={<div>Loading...</div>}>
+        <LoadParams setDbobj={setdmobj} />
+      </Suspense>
   
       <div>These are the All Details</div>
-      <p>Month: {dmobj.month}</p>
-      <p>Floor Name: {dmobj.Bdetails.floor}</p>
-      <p>Renter Name: {dmobj.Rname}</p>
-      <p>Month Rent: {dmobj.rent}</p>
-      <p>Electricity Bill: {dmobj.bill}</p>
-      <p>Water Bill  :{dmobj.wbill}</p>
-      <p>Maid Fee   :{dmobj.mfee}</p>
-      <p>Parking Fee  :{dmobj.pfee}</p>
-      <p>Monthly Total   :{dmobj.mtot}</p>
-      <p>Previous Balance   :{dmobj.bal}</p>
-      <p>Grand Total   :{dmobj.gtot}</p>
-      <p>Padi this month:{dmobj.paid}</p>
-      <p>Current Balance to Pay:{dmobj.topay} </p>
+      <p>Month: {dmobj?dmobj.month: "Loading..."}</p>
+      <p>Floor Name: {dmobj?dmobj.Bdetails.floor: "Loading..."}</p>
+      <p>Renter Name: {dmobj?dmobj.Rname: "Loading..."}</p>
+      <p>Month Rent: {dmobj?dmobj.rent: "Loading..."}</p>
+      <p>Electricity Bill: {dmobj?dmobj.bill: "Loading..."}</p>
+      <p>Water Bill  :{dmobj?dmobj.wbill: "Loading..."}</p>
+      <p>Maid Fee   :{dmobj?dmobj.mfee: "Loading..."}</p>
+      <p>Parking Fee  :{dmobj?dmobj.pfee: "Loading..."}</p>
+      <p>Monthly Total   :{dmobj?dmobj.mtot: "Loading..."}</p>
+      <p>Previous Balance   :{dmobj?dmobj.bal: "Loading..."}</p>
+      <p>Grand Total   :{dmobj?dmobj.gtot: "Loading..."}</p>
+      <p>Padi this month:{dmobj?dmobj.paid: "Loading..."}</p>
+      <p>Current Balance to Pay:{dmobj?dmobj.topay:"Loading ..."} </p>
       <button className='bg-blue-500' onClick={() => handledit(dmobj)}>Edit Detials</button>
     
       
 
     </>
   );
+}
+
+function LoadParams({ setDbobj }) {
+
+  const searchParams = useSearchParams();
+  const mobj = searchParams.get('mobj');
+  
+
+  // const own = searchParams.get('owner');
+  // const bid = searchParams.get('bid');
+  useEffect(() => {
+    if (mobj) {
+      const dmobj = mobj ? JSON.parse(decodeURIComponent(mobj)) : null;
+      // const dbobj = JSON.parse(decodeURIComponent(bobj));
+      setDbobj(
+        {...dmobj}
+      );
+    }}, [mobj, setDbobj]);
+
+  return null;
 }

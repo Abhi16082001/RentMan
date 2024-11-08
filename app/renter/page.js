@@ -1,16 +1,21 @@
 "use client"
 import React from 'react'
+import { Suspense } from 'react';
 import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 export default function Page() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const bobj = searchParams.get('bobj');
-  // const robj = searchParams.get('robj');
-  // const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
-    const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
-    const bid=dbobj.id
+  // <Suspense fallback={<div>Loading...</div>}>
+  // const searchParams = useSearchParams();
+  // const bobj = searchParams.get('bobj');
+  // // const robj = searchParams.get('robj');
+  // // const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
+  //   const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
+
+  //   </Suspense>
+  const [bid, setbid] = useState()
+    
   const [rentmodel, setrentmodel]= useState({})
   const [rent, setrent]=useState([])
   const [alert, setalert] = useState("")
@@ -32,10 +37,11 @@ useEffect(() => {
       return [];
     }
   }
-  fetchfloor(bid)
+  if(bid){
+  fetchfloor(bid)}
   
 },
-[])
+[bid])
 
 const onchange=(e) => {
   setrentmodel({...rentmodel,[e.target.name]:e.target.value})
@@ -150,6 +156,10 @@ console.error('Error:',error);
 
   return (
     <>
+<Suspense fallback={<div>Loading...</div>}>
+        <LoadParams setDbobj={setbid} />
+      </Suspense>
+
     <div> Add the renters with floors here !!</div>
 
     <form>
@@ -172,4 +182,31 @@ console.error('Error:',error);
     <div className="text-red-600 text-center">{dalert}</div>
     </>
   );
+}
+
+function LoadParams({ setDbobj }) {
+
+
+  const searchParams = useSearchParams();
+  const bobj = searchParams.get('bobj');
+    
+
+  // const robj = searchParams.get('robj');
+  // const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
+    
+  
+
+  // const own = searchParams.get('owner');
+  // const bid = searchParams.get('bid');
+  useEffect(() => {
+    if (bobj) {
+      const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
+      // const dbobj = JSON.parse(decodeURIComponent(bobj));
+      setDbobj(
+        dbobj.id
+        
+      );
+    }}, [bobj, setDbobj]);
+
+  return null;
 }

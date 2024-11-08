@@ -1,5 +1,5 @@
 "use client"
-
+import { Suspense } from 'react';
 import React from 'react'
 import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
@@ -13,15 +13,20 @@ import { useRouter } from 'next/navigation';
 
 
 export default function Page() {
+  // <Suspense fallback={<div>Loading...</div>}>
     const router = useRouter();
-    const [dalert, setdalert] = useState()
-    const searchParams = useSearchParams();
-    const robj = searchParams.get('robj');
-    const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
+  //   const [dalert, setdalert] = useState()
+  //   const searchParams = useSearchParams();
+  //   const robj = searchParams.get('robj');
+  //   const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
+  //   </Suspense>
+  const [dalert, setdalert] = useState()
     const [ralert, setralert] = useState("")
-    const [dmodel, setdmodel]= useState({Rname:drobj.Rname})
+    const [dmodel, setdmodel]= useState(null)
+    const [drobj, setdrobj] = useState(null)
     const [md, setmd]=useState([])
     useEffect(() => {
+    
         const fetchmdetails= async (bid,flr) => {
           const response= await fetch(`api/mdetails?Bid=${encodeURIComponent(bid)}&floor=${flr}`)
           let mjson= await response.json()
@@ -31,10 +36,12 @@ export default function Page() {
             setralert("No Month Details Addded !")
           }
         }
-        fetchmdetails(drobj.Bid,drobj.floor)
+        if(drobj){
+          console.log(drobj)
+        fetchmdetails(drobj.Bid,drobj.floor)}
         
       },
-      [])
+      [drobj])
 
 
       const mdelete = async (mid) => {
@@ -112,9 +119,14 @@ export default function Page() {
 
     return(
 <>
+<Suspense fallback={<div>Loading...</div>}>
+        <LoadParams setDbobj={setdmodel} setdrobj={setdrobj} />
 
-<p>Floor: {drobj.floor}</p>
-  <p>Renter Name: {drobj.Rname}</p>
+      </Suspense>
+      <p>Floor: {drobj ? drobj.floor : "Loading..."}</p>
+      <p>Renter Name: {drobj ? drobj.Rname : "Loading..."}</p>
+{/* <p>Floor: {drobj.floor}</p>
+  <p>Renter Name: {drobj.Rname}</p> */}
 
 
       <form>
@@ -157,3 +169,22 @@ export default function Page() {
 
     );}
     // export default page
+
+    function LoadParams({ setDbobj ,setdrobj}) {
+
+     
+      const searchParams = useSearchParams();
+      const robj = searchParams.get('robj');
+      useEffect(() => {
+        if (robj) {
+          const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
+          // const dbobj = JSON.parse(decodeURIComponent(bobj));
+          setDbobj(
+            {Rname:drobj.Rname}
+          );
+          setdrobj(drobj)
+          console.log(drobj)
+        }}, [robj, setDbobj, setdrobj]);
+    
+      return null;
+    }

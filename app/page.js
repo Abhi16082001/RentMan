@@ -3,12 +3,12 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { useRouter } from 'next/navigation';
 export default function Home() {
+  const router = useRouter();
 
   const [bldmodel, setbldmodel]= useState({})
   const [bld, setbld]=useState([])
   const [alert, setalert] = useState("")
   const [dalert, setdalert] = useState("")
-  const router = useRouter();
 useEffect(() => {
   const fetchbuild= async () => {
     const response= await fetch('api/building')
