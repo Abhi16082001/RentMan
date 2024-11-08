@@ -110,12 +110,28 @@ export default function page() {
       <form>
        <label htmlFor="month">Select Month and Year:</label>
        <input value={dmodel?.month || ""} type="month" id="month" name="month" onChange={onchanger}/>
-        <label htmlFor="rent">Rent</label>
+        <label htmlFor="rent">Monthly Rent: </label>
         <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent" onChange={onchanger} />
-        <label htmlFor="bill">Bill</label>
+        <label htmlFor="bill">Electricity Bill:</label>
         <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill" onChange={onchanger} />
+        <label htmlFor="wbill">Water Bill:</label>
+        <input value={dmodel?.wbill || ""} required type="text" name="wbill" id="wbill" onChange={onchanger} />
+        <label htmlFor="mfee">Maid Fee:</label>
+        <input value={dmodel?.mfee || ""} required type="text" name="mfee" id="mfee" onChange={onchanger} />
+        <label htmlFor="pfee">Parking Fee:</label>
+        <input value={dmodel?.pfee || ""} required type="text" name="pfee" id="pfee" onChange={onchanger} />
+        <label htmlFor="mtot">Monthly Total:</label>
+        <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot" onChange={onchanger} />
+        <label htmlFor="bal">Previous Balance:</label>
+        <input value={dmodel?.bal || ""} required type="text" name="bal" id="bal" onChange={onchanger} />
+        <label htmlFor="gtot">Grand Total:</label>
+        <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot" onChange={onchanger} />
+        <label htmlFor="paid">Paid this Month: </label>
+        <input value={dmodel?.paid || ""} required type="text" name="paid" id="paid" onChange={onchanger} />
+        <label htmlFor="topay">Current Balance to pay: </label>
+        <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay" onChange={onchanger} />
         <br /> 
-        <button className="bg-green-600" onClick={addetails}>Add Details</button>
+        <button className="bg-green-600" onClick={addetails}>Add Month Details</button>
       </form>
       <div className="text-green-600 text-center">{ralert}</div>
 

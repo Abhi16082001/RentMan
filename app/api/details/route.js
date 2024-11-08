@@ -73,19 +73,22 @@ export async function GET(request) {
           // Replace the uri string with your connection string.
           
           let bld= await request.json()
-          const rdetails={Rname:bld.Rname, month:bld.month,rent:bld.rent,bill:bld.bill,}
-          const bdetails={Bid:bld.bid,floor:bld.floor}
+          console.log(bld)
+          const rdetails={...bld}
+          delete rdetails.Bdetails;
+          delete rdetails._id;
+          const bdetails={Bid:bld.Bdetails.Bid,floor:bld.Bdetails.floor}
           const client = await getClient();
             try {
               const database = client.db('BuildingsDB');
               const bldngs = database.collection('buildings');
               const rntrs = database.collection('renters');
               const result = await rntrs.updateOne(
-                {  _id:new ObjectId(bld.rid) }, // Find the document by ID
+                {  _id:new ObjectId(bld._id) }, // Find the document by ID
                 { $set: { ...rdetails,Bdetails:bdetails } } // Assuming 'yourArrayField' is the field to update
               ); 
               const result2 = await bldngs.updateOne(
-                { _id:new ObjectId(bld.bid), "rentfloor.floor": bld.floor }, // Find the document by ID
+                { _id:new ObjectId(bld.Bdetails.Bid), "rentfloor.floor": bld.Bdetails.floor }, // Find the document by ID
                 { $set: { "rentfloor.$.Rname": bld.Rname } } // Assuming 'yourArrayField' is the field to update
               );
               if (result.modifiedCount === 0 || result2.modifiedCount===0)  {

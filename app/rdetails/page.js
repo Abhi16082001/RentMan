@@ -49,15 +49,22 @@ export default function page() {
 
   return (
     <>
-  <div>These are the renter details: </div>
 
   
       <div>These are the All Details</div>
       <p>Month: {dmobj.month}</p>
-      <p>Renter Name: {dmobj.Rname}</p>
       <p>Floor Name: {dmobj.Bdetails.floor}</p>
+      <p>Renter Name: {dmobj.Rname}</p>
       <p>Month Rent: {dmobj.rent}</p>
       <p>Electricity Bill: {dmobj.bill}</p>
+      <p>Water Bill  :{dmobj.wbill}</p>
+      <p>Maid Fee   :{dmobj.mfee}</p>
+      <p>Parking Fee  :{dmobj.pfee}</p>
+      <p>Monthly Total   :{dmobj.mtot}</p>
+      <p>Previous Balance   :{dmobj.bal}</p>
+      <p>Grand Total   :{dmobj.gtot}</p>
+      <p>Padi this month:{dmobj.paid}</p>
+      <p>Current Balance to Pay:{dmobj.topay} </p>
       <button className='bg-blue-500' onClick={() => handledit(dmobj)}>Edit Detials</button>
     
       
