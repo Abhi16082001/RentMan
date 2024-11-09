@@ -76,10 +76,11 @@ return (
 
     <p>Floor: {dmodel?dmodel.Bdetails.floor:"Loading..."}</p>
     <p>Month: {dmodel?dmodel.month:"Loading..."}</p>
+    <p>Renter ID: {dmodel?dmodel.uid:"Loading..."}</p>
     <form>
   
-        <label htmlFor="Rname">Renter Name:</label>
-        <input value={dmodel?.Rname || ""} required type="text" name="Rname" id="Rname" onChange={onRchanger} />
+        <label htmlFor="uname">Renter Name:</label>
+        <input value={dmodel?.uname || ""} required type="text" name="uname" id="uname" onChange={onRchanger} />
         <label htmlFor="rent">Rent:</label>
         <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent" onChange={onchanger} />
         <label htmlFor="bill">Bill:</label>
@@ -98,6 +99,8 @@ return (
         <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot" onChange={onchanger} />
         <label htmlFor="paid">Paid this Month: </label>
         <input value={dmodel?.paid || ""} required type="text" name="paid" id="paid" onChange={onchanger} />
+        <label htmlFor="pddt">Paid on which Date: </label>
+        <input value={dmodel?.pddt || ""} required type="text" name="pddt" id="pddt" onChange={onchanger} />
         <label htmlFor="topay">Current Balance to pay: </label>
         <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay" onChange={onchanger} />
         <br /> 

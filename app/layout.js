@@ -1,6 +1,7 @@
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
+import { DataProvider } from "./context/DataContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -20,13 +21,16 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
+    // <DataProvider>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Navbar/>
+      <Navbar/>
         {children}
       </body>
     </html>
+    // </DataProvider>
   );
 }
+

@@ -83,15 +83,20 @@ export async function GET(request) {
               const database = client.db('BuildingsDB');
               const bldngs = database.collection('buildings');
               const rntrs = database.collection('renters');
+              const usrs=database.collection('users')
               const result = await rntrs.updateOne(
                 {  _id:new ObjectId(bld._id) }, // Find the document by ID
                 { $set: { ...rdetails,Bdetails:bdetails } } // Assuming 'yourArrayField' is the field to update
               ); 
               const result2 = await bldngs.updateOne(
                 { _id:new ObjectId(bld.Bdetails.Bid), "rentfloor.floor": bld.Bdetails.floor }, // Find the document by ID
-                { $set: { "rentfloor.$.Rname": bld.Rname } } // Assuming 'yourArrayField' is the field to update
+                { $set: { "rentfloor.$.uname": bld.uname } } // Assuming 'yourArrayField' is the field to update
               );
-              if (result.modifiedCount === 0 || result2.modifiedCount===0)  {
+              const result3 = await usrs.updateOne(
+                { uid:bld.uid}, // Find the document by ID
+                { $set: { "uname": bld.uname } } // Assuming 'yourArrayField' is the field to update
+              );
+              if (result.modifiedCount === 0 || result2.modifiedCount===0 || result3.modifiedCount===0)  {
                 return NextResponse.json({ ok: false, message: 'Not updated' });
               }
         

@@ -124,7 +124,8 @@ export default function Page() {
 
       </Suspense>
       <p>Floor: {drobj ? drobj.floor : "Loading..."}</p>
-      <p>Renter Name: {drobj ? drobj.Rname : "Loading..."}</p>
+      <p>Renter Name: {drobj ? drobj.uname : "Loading..."}</p>
+      <p>Renter ID: {drobj ? drobj.uid : "Loading..."} </p>
 {/* <p>Floor: {drobj.floor}</p>
   <p>Renter Name: {drobj.Rname}</p> */}
 
@@ -148,8 +149,10 @@ export default function Page() {
         <input value={dmodel?.bal || ""} required type="text" name="bal" id="bal" onChange={onchanger} />
         <label htmlFor="gtot">Grand Total:</label>
         <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot" onChange={onchanger} />
-        <label htmlFor="paid">Paid this Month: </label>
+        <label htmlFor="paid">How much Paid this Month: </label>
         <input value={dmodel?.paid || ""} required type="text" name="paid" id="paid" onChange={onchanger} />
+        <label htmlFor="pddt">Paid on which Date: </label>
+        <input value={dmodel?.pddt || ""} required type="text" name="pddt" id="pddt" onChange={onchanger} />
         <label htmlFor="topay">Current Balance to pay: </label>
         <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay" onChange={onchanger} />
         <br /> 
@@ -160,7 +163,7 @@ export default function Page() {
 
 <div>Here the Details of renter month wise</div>
     {md.map(m=>{
-      return <div key={m._id}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(m)}>Renter {m.Rname} details of {m.month}.</button> <button className="bg-red-500" onClick={() => mdelete(m._id)}>Delete</button> </div> 
+      return <div key={m._id}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(m)}>Renter {m.uid}: {m.uname} with details of {m.month}.</button> <button className="bg-red-500" onClick={() => mdelete(m._id)}>Delete</button> </div> 
   })}
 <div className="text-red-600 text-center">{dalert}</div>
   <br />
@@ -180,7 +183,7 @@ export default function Page() {
           const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
           // const dbobj = JSON.parse(decodeURIComponent(bobj));
           setDbobj(
-            {Rname:drobj.Rname}
+            {uname:drobj.uname,uid:drobj.uid}
           );
           setdrobj(drobj)
           console.log(drobj)

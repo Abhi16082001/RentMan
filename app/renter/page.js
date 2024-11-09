@@ -15,7 +15,7 @@ export default function Page() {
 
   //   </Suspense>
   const [bid, setbid] = useState()
-    
+    const [user, setuser] = useState(false)
   const [rentmodel, setrentmodel]= useState({})
   const [rent, setrent]=useState([])
   const [alert, setalert] = useState("")
@@ -53,8 +53,8 @@ const onchange=(e) => {
 //   const encodedObj = encodeURIComponent(JSON.stringify(obj));
 //   router.push(`/rdetails?robj=${encodedObj}`);
 // };
-const handleClick = (rname,flr) => {
-  const obj = { Bid:bid,Rname:rname,floor:flr };
+const handleClick = (unm,flr,uid) => {
+  const obj = { Bid:bid,uname:unm,floor:flr,uid:uid };
   const encodedObj = encodeURIComponent(JSON.stringify(obj));
   router.push(`/mdetails?robj=${encodedObj}`);
 };
@@ -73,9 +73,9 @@ const handleClick = (rname,flr) => {
 
 
 
-const deletefloor = async (Rname,floor) => {
-  setdalert(`Deleting Renter ${Rname} of ${floor} Floor...`)
-  const co = { bid,Rname,floor }; 
+const deletefloor = async (uname,floor,uid) => {
+  setdalert(`Deleting Renter ${uname} of ${floor} Floor...`)
+  const co = { bid,uname,floor,uid }; 
   try {
       const response = await fetch('/api/renter', {
           method: 'DELETE',
@@ -96,6 +96,39 @@ const deletefloor = async (Rname,floor) => {
   }
 };
 
+const addrenter = async (e) => {
+  setalert("Adding Renter ...")
+  e.preventDefault();
+
+  // Replace with the actual ID of the document you want to update
+  const co = { owner:false,...rentmodel };
+  // const Rname=rentmodel.Rname;
+  // const floor=rentmodel.floor;
+  console.log(co)
+  console.log(JSON.stringify(co))
+  try{
+    const response= await fetch('api/user',{
+      method:'POST',
+      headers:{ 'Content-Type':'application/json'},
+      body: JSON.stringify(co),
+    });
+    const data= await response.json()
+    if(data.ok){
+      console.log("Renter Registered Sucessfully ! ")
+      setalert("Renter Registered Sucessfully !!")
+     setuser(true)
+    }
+    else{
+      console.log("Error Registering Renter !!")
+      console.log(data)
+      // setalert("Error Registering User!!")
+      setalert(data.message)
+    }
+  }
+  catch(error){
+console.error('Error:',error);
+  }
+}
 
 const addfloor = async (e) => {
   setalert("Adding Renter Floor...")
@@ -103,8 +136,8 @@ const addfloor = async (e) => {
 
   const Bid = bid; // Replace with the actual ID of the document you want to update
   const co = { Bid,...rentmodel };
-  const Rname=rentmodel.Rname;
-  const floor=rentmodel.floor;
+  // const Rname=rentmodel.Rname;
+  // const floor=rentmodel.floor;
   console.log(co)
   console.log(JSON.stringify(co))
   try{
@@ -162,14 +195,25 @@ console.error('Error:',error);
 
     <div> Add the renters with floors here !!</div>
 
-    <form>
-        <label htmlFor="Rname">Renter Name</label>
-        <input value={rentmodel?.Rname || ""} required type="text" name="Rname" id="Rname" onChange={onchange} />
-        <label htmlFor="floor">Floor Number/Name</label>
-        <input value={rentmodel?.floor || ""} required type="text" name="floor" id="floor" onChange={onchange} />
-        <br /> 
-        <button className="bg-green-600" onClick={addfloor}>Add Renter/Floor</button>
-      </form>
+        <div>{user?(<>
+        <form>
+       <label htmlFor="floor">Floor Number/Name</label>
+       <input value={rentmodel?.floor || ""} required type="text" name="floor" id="floor" onChange={onchange} />
+       <br />
+       <button className="bg-green-600" onClick={addfloor}>Add Floor</button>  </form></> ):(
+        <>
+        <form>
+            <label htmlFor="uname">Renter Name</label>
+            <input value={rentmodel?.uname || ""} required type="text" name="uname" id="uname" onChange={onchange} />
+            <label htmlFor="uid">Renter ID:</label>
+            <input value={rentmodel?.uid || ""} required type="text" name="uid" id="uid" onChange={onchange} />
+            <label htmlFor="pwd">Renter Password:</label>
+            <input value={rentmodel?.pwd || ""} required type="text" name="pwd" id="pwd" onChange={onchange} />
+            <button className="bg-green-600" onClick={addrenter}>Add Renter</button>
+            </form>
+            </>
+       )}</div>
+     
       <div className="text-green-600 text-center">{alert}</div>
 
 
@@ -177,7 +221,7 @@ console.error('Error:',error);
 
     <h1>All Floors with Renters in Building</h1>
     {rent.map(r=>{
-   return <div className="text-teal-700" key={r.floor}><p onClick={() => handleClick(r.Rname,r.floor)} >The Renter name : {r.Rname} lives in  {r.floor}.</p> <button className="bg-red-500" onClick={() => deletefloor(r.Rname,r.floor)}>Delete</button> </div> 
+   return <div className="text-teal-700" key={r.floor}><p onClick={() => handleClick(r.uname,r.floor,r.uid)} >The Renter {r.uid}: {r.uname} lives in  {r.floor}.</p> <button className="bg-red-500" onClick={() => deletefloor(r.uname,r.floor,r.uid)}>Delete</button> </div> 
   })}
     <div className="text-red-600 text-center">{dalert}</div>
     </>

@@ -34,7 +34,7 @@ export async function PUT(request) {
   
   let renters= await request.json();
   const bid=renters.Bid
-  const renter={"Rname":renters.Rname,"floor":renters.floor}
+  const renter={"uid":renters.uid,"uname":renters.uname,"floor":renters.floor}
   const client = await getClient();
     try {
       const database = client.db('BuildingsDB');
@@ -76,7 +76,7 @@ console.log(renter)
       
       // Parse the request body to get the ID or any unique identifier for deletion
       const renter = await request.json(); // Assuming the request body contains the ID to delete
-      const rname=renter.Rname
+      const unm=renter.uname
       const floor=renter.floor
       const Bid=renter.bid
   console.log(renter)
@@ -100,16 +100,16 @@ console.log(renter)
             {_id: new ObjectId(Bid) }, // Query condition to match the document
             { 
               $pull: { 
-                rentfloor: { Rname:rname, floor:floor } // Object condition to match in the array
+                rentfloor: { uname:unm, floor:floor } // Object condition to match in the array
               }
             }
           )
   
           if (result.modifiedCount === 1) {
-              console.log(`Successfully deleted the Renter ${rname} of ${floor} Floor`);
-              return NextResponse.json({ message: `Renter ${rname} of ${floor} Floor deleted successfully.`, ok: true });
+              console.log(`Successfully deleted the Renter ${unm} of ${floor} Floor`);
+              return NextResponse.json({ message: `Renter ${unm} of ${floor} Floor deleted successfully.`, ok: true });
           } else {
-              return NextResponse.json({ message: `No Renter ${rname} found in ${floor} Floor.`, ok: false }, { status: 404 });
+              return NextResponse.json({ message: `No Renter ${unm} found in ${floor} Floor.`, ok: false }, { status: 404 });
           }}
       } catch (error) {
           console.error('Error deleting Renter:', error);

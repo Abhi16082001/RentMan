@@ -2,17 +2,21 @@ import { NextResponse } from "next/server";
 import getClient from "@/lib/mongodb";
 import { ObjectId } from 'mongodb';
 export async function GET(request) {
+       
+  console.log("I was here")
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('uid');
+  console.log(id)
 // Replace the uri string with your connection string.
 const client = await getClient();
   try {
     const database = client.db('BuildingsDB');
     const bldngs = database.collection('buildings');
-
     // Query for a movie that has the title 'Back to the Future'
     // const query = { title: 'Back to the Future' };
-    const query = {  };
+    const query = { "uid": id, };
     const Build = await bldngs.find(query).toArray();
-
+console.log(Build)
     return NextResponse.json({success:true,Build})
   } finally {
     // Ensures that the client will close when you finish/error
@@ -54,7 +58,7 @@ export async function POST(request) {
         // const rntrs = database.collection('renters');
         const result = await bldngs.updateMany(
           { _id:new ObjectId(bid) }, // Find the document by ID
-          { $set: { Bname:bname, owner:own } } // Assuming 'yourArrayField' is the field to update
+          { $set: { Bname:bname} } // Assuming 'yourArrayField' is the field to update
         );
         // const result2 = await rntrs.updateMany(
         //   { Bname: oldbname }, // Find the document by ID

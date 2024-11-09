@@ -1,128 +1,79 @@
 "use client"
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useEffect} from "react";
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-export default function Home() {
+// import { useData } from './context/DataContext';
+
+export default function Page() {
+  // const {setData}  = useData();
   const router = useRouter();
+    const [umodel, setumodel] = useState(null)
+    const [alert, setalert] = useState("")
 
-  const [bldmodel, setbldmodel]= useState({})
-  const [bld, setbld]=useState([])
-  const [alert, setalert] = useState("")
-  const [dalert, setdalert] = useState("")
-useEffect(() => {
-  const fetchbuild= async () => {
-    const response= await fetch('api/building')
-    let bjson= await response.json()
-    console.log(bjson.Build)
-    setbld(bjson.Build)
-    if(bjson.Build.length==0){
-      setalert("No Buildings Added")
+    useEffect(() => {
+      // setData(null);  // Set data to null when the page is visited
+    }, []);
+    const onchange=(e) => {
+        setumodel({
+          ...umodel,
+          [e.target.name]: e.target.value // Add an empty array if rentfloor does not exist
+        });
     }
-    
 
 
-  }
-  fetchbuild()
-  
-},
-[])
-
-const onchange=(e) => {
-  setbldmodel({
-    ...bldmodel,
-    [e.target.name]: e.target.value,
-    rentfloor: bldmodel.rentfloor || [] // Add an empty array if rentfloor does not exist
-  });
-  
-}
-
-const handleClick = (bnm,owner,bid) => {
-  const obj = { bname: bnm, id:bid, own:owner  };
-  const encodedObj = encodeURIComponent(JSON.stringify(obj));
-  router.push(`/renter?bobj=${encodedObj}`);
-};
-
-const handledit=(bid,bnm,owner) => {
-  const obj = { bname: bnm, id:bid, own:owner  };
-  const encodedObj = encodeURIComponent(JSON.stringify(obj));
-  router.push(`/editbuilding?bobj=${encodedObj}`);
-}
-
-
-// In your component file
-
-const deletebuilding = async (bid) => {
-  setdalert(`Deleting Building...`)
-  console.log(JSON.stringify({ bid}))
-  try {
-      const response = await fetch('/api/building', {
-          method: 'DELETE',
-          headers: {
-              'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ bid }), // Send the ID in the request body
-      });
-
-      const data = await response.json();
-      if (!response.ok) {
-        setdalert(data.message)
-          throw new Error(data.message || 'Failed to delete the Building');
+    const fetchuser = async (e) => {
+        setalert("Fetching User...")
+        e.preventDefault();
+        try{
+          const response= await fetch(`api/user?uid=${encodeURIComponent(umodel.uid)}&pwd=${encodeURIComponent(umodel.pwd)}`,{
+            method:'GET',
+            headers:{ 'Content-Type':'application/json'},
+          });
+          const data= await response.json()
+          const ouser=data.userexistence
+          console.log(ouser)
+          if(data.ok){
+            console.log("Logged in Sucessfully ! ")
+            setalert("Logged in Sucessfully !!")
+            setumodel({})
+            const jouser=JSON.stringify(ouser)
+            if(ouser.owner){
+              console.log(jouser)
+            router.push(`/owner?udtl=${ouser.uid}`);}
+            else{
+              router.push(`/usermonth?udtl=${ouser.uid}`);
+            }
+            // setData(ouser);
+          }
+          else{
+            console.log("User is not Registered !!")
+            // setalert("Error Registering User!!")
+            setalert(data.message)
+          }
+        }
+        catch(error){
+      console.error('Error:',error);
+        }
       }
+      
 
-      console.log(data.message); // Log success message
-      setdalert(` Building deleted successfully.`)
-  } catch (erro) {
-      console.log('Error:', erro);
-  }
-};
+    return (
+  <>
 
-
-
-const addbuilding = async (e) => {
-  setalert("Adding Building...")
-  e.preventDefault();
-  try{
-    const response= await fetch('api/building',{
-      method:'POST',
-      headers:{ 'Content-Type':'application/json'},
-      body: JSON.stringify(bldmodel)
-    });
-    if(response.ok){
-      console.log("Building Added Sucessfully ! ")
-      setalert("Building Added Successfully !!")
-      setbldmodel({})
-    }
-    else{
-      console.log("Error adding Building !!")
-      setalert("Error in adding Building !!")
-    }
-  }
-  catch(error){
-console.error('Error:',error);
-  }
-}
-
-
-  return (
-    <>
-    <div> Hi this is the new rent man app</div>
-
-    <form>
-        <label htmlFor="Bname">Building Name</label>
-        <input  pattern="^(?!\s*$).+" // Ensures that input is not just spaces
-  title="This field cannot be empty or just spaces" value={bldmodel?.Bname || ""} required type="text" name="Bname" id="Bname" onChange={onchange} />
-        <label htmlFor="owner">Owner Name</label>
-        <input  pattern="^(?!\s*$).+" // Ensures that input is not just spaces
-  title="This field cannot be empty or just spaces" value={bldmodel?.owner || ""} required type="text" name="owner" id="owner" onChange={onchange} />
+<form>
+       
+        <label htmlFor="uid">User ID:</label>
+        <input value={umodel?.uid || ""} required type="text" name="uid" id="uid" onChange={onchange} />
+        <label htmlFor="pwd">Enter Password:</label>
+        <input value={umodel?.pwd || ""} required type="text" name="pwd" id="pwd" onChange={onchange} />
         <br /> 
-        <button className="bg-green-600" onClick={addbuilding}>Add Building</button>
+        <button className="bg-blue-600" onClick={fetchuser}>Login</button>
       </form>
       <div className="text-green-600 text-center">{alert}</div>
-    <h1>All Buildings</h1>
-    {bld.map(b=>{
-      return <div key={b._id}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(b.Bname,b.owner,b._id)}>The building name : {b.Bname} is owned by {b.owner}.</button> <button className="bg-green-500" onClick={() => handledit(b._id,b.Bname,b.owner)}>Edit</button> <button className="bg-red-500" onClick={() => deletebuilding(b._id)}>Delete</button> </div> 
-  })}
-   <div className="text-red-600 text-center">{dalert}</div>
-    </>
-  );
-}
+      <div>Not Registered? </div>
+      <Link  href="/register"> Register Here</Link>
+  </>
+  
+    );
+  }

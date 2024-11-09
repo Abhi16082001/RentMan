@@ -57,8 +57,8 @@ export default function Page()  {
     <form>
         <label htmlFor="Bname">Building Name</label>
         <input value={bldmodel?.Bname || ""} required type="text" name="Bname" id="Bname" onChange={onchange} />
-        <label htmlFor="owner">Owner Name</label>
-        <input value={bldmodel?.owner || ""} required type="text" name="owner" id="owner" onChange={onchange} />
+        {/* <label htmlFor="owner">Owner Name</label>
+        <input value={bldmodel?.owner || ""} required type="text" name="owner" id="owner" onChange={onchange} /> */}
         <br /> 
         <button className="bg-green-600" onClick={updatebuilding}>Update</button>
       </form>
@@ -79,7 +79,7 @@ function LoadParams({ setDbobj }) {
       const dbobj = bobj ? JSON.parse(decodeURIComponent(bobj)) : null;
       // const dbobj = JSON.parse(decodeURIComponent(bobj));
       setDbobj(
-        {bid:dbobj.id,Bname:dbobj.bname,owner:dbobj.own}
+        {bid:dbobj.id,Bname:dbobj.bname}
       );
     }}, [bobj, setDbobj]);
 

@@ -60,7 +60,8 @@ export default function Page() {
       <div>These are the All Details</div>
       <p>Month: {dmobj?dmobj.month: "Loading..."}</p>
       <p>Floor Name: {dmobj?dmobj.Bdetails.floor: "Loading..."}</p>
-      <p>Renter Name: {dmobj?dmobj.Rname: "Loading..."}</p>
+      <p>Renter ID: {dmobj?dmobj.uid: "Loading..."}</p>
+      <p>Renter Name: {dmobj?dmobj.uname: "Loading..."}</p>
       <p>Month Rent: {dmobj?dmobj.rent: "Loading..."}</p>
       <p>Electricity Bill: {dmobj?dmobj.bill: "Loading..."}</p>
       <p>Water Bill  :{dmobj?dmobj.wbill: "Loading..."}</p>
@@ -69,7 +70,8 @@ export default function Page() {
       <p>Monthly Total   :{dmobj?dmobj.mtot: "Loading..."}</p>
       <p>Previous Balance   :{dmobj?dmobj.bal: "Loading..."}</p>
       <p>Grand Total   :{dmobj?dmobj.gtot: "Loading..."}</p>
-      <p>Padi this month:{dmobj?dmobj.paid: "Loading..."}</p>
+      <p>Paid this month:{dmobj?dmobj.paid: "Loading..."}</p>
+      <p>Paid On: {dmobj?dmobj.pddt: "Loading..."}</p>
       <p>Current Balance to Pay:{dmobj?dmobj.topay:"Loading ..."} </p>
       <button className='bg-blue-500' onClick={() => handledit(dmobj)}>Edit Detials</button>
     
