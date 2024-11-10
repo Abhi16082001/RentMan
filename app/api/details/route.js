@@ -50,6 +50,7 @@ export async function GET(request) {
               "Bdetails.Bid": bid,
               "Bdetails.floor": flr,
               "month":mnth,
+              "uid":bld.uid,
             };
             const existingmonth = await bldngs.findOne(query);
             if (existingmonth) {

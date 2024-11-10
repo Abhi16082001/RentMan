@@ -11,9 +11,9 @@ export default function Page() {
     const [umodel, setumodel] = useState(null)
     const [alert, setalert] = useState("")
 
-    useEffect(() => {
-      // setData(null);  // Set data to null when the page is visited
-    }, []);
+    // useEffect(() => {
+    //   // setData(null);  // Set data to null when the page is visited
+    // }, []);
     const onchange=(e) => {
         setumodel({
           ...umodel,
@@ -40,18 +40,22 @@ export default function Page() {
             const jouser=JSON.stringify(ouser)
             if(ouser.owner){
               console.log(jouser)
-            router.push(`/owner?udtl=${ouser.uid}`);}
+
+            router.push(`/owner?uid=${ouser.uid}&uname=${ouser.uname}`);}
+       
+          
             else{
-              router.push(`/usermonth?udtl=${ouser.uid}`);
-            }
+              // router.push(`/usermonth?udtl=${ouser.uid}`);
+              router.push(`/usermonth?uid=${ouser.uid}&uname=${ouser.uname}`);
+            }}
             // setData(ouser);
+            else{
+              console.log("User is not Registered !!")
+              // setalert("Error Registering User!!")
+              setalert(data.message)
+            }
           }
-          else{
-            console.log("User is not Registered !!")
-            // setalert("Error Registering User!!")
-            setalert(data.message)
-          }
-        }
+        
         catch(error){
       console.error('Error:',error);
         }

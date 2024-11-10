@@ -131,7 +131,7 @@ console.error('Error:',error);
 }
 
 const addfloor = async (e) => {
-  setalert("Adding Renter Floor...")
+  setalert("Adding Floor...")
   e.preventDefault();
 
   const Bid = bid; // Replace with the actual ID of the document you want to update
@@ -192,6 +192,7 @@ console.error('Error:',error);
 <Suspense fallback={<div>Loading...</div>}>
         <LoadParams setDbobj={setbid} />
       </Suspense>
+   
 
     <div> Add the renters with floors here !!</div>
 

@@ -59,3 +59,28 @@ export async function GET(request) {
             // await client.close();
           }
         }
+
+
+        export async function PUT(request) {
+          // Replace the uri string with your connection string.
+          
+          let bld= await request.json()
+          const client = await getClient();
+            try {
+              const database = client.db('BuildingsDB');
+              const usrs = database.collection('users');
+             
+                const result=await usrs.updateOne(
+                  { uid: bld.uid},
+                  { $set: { uname: bld.uname, pwd:bld.pwd } }
+                );
+              
+              if (result.modifiedCount === 0 )  {
+                return NextResponse.json({ ok: false, message: 'Update Failed !!' });
+              }
+              return NextResponse.json({ok:true,message:"Updated Successfully !!"})
+            } finally {
+              // Ensures that the client will close when you finish/error
+              // await client.close();
+            }
+          }

@@ -46,10 +46,24 @@ export async function PUT(request) {
         { upsert: true } // Create a new document if one does not exist
       );
 console.log(renter)
-      const result = await bldngs.updateOne(
-        { _id: new ObjectId(bid)}, // Find the document by ID
-        { $push: { rentfloor: renter } } // Assuming 'yourArrayField' is the field to update
-      );
+
+
+const building = await bldngs.findOne({ _id: new ObjectId(bid)});
+const existingFloorIndex = await building.rentfloor.findIndex(item => item.floor === renters.floor);
+if (existingFloorIndex !== -1) {
+  // Floor exists; update the element
+  building.rentfloor[existingFloorIndex] = { ...renter  };
+} else {
+      // const result = await bldngs.updateOne(
+      //   { _id: new ObjectId(bid)}, // Find the document by ID
+      //   { $push: { rentfloor: renter } } // Assuming 'yourArrayField' is the field to update
+      // );
+      building.rentfloor.push(renter );
+    }
+    const result=await bldngs.updateOne(
+      { _id: new ObjectId(bid)},
+      { $set: { rentfloor: building.rentfloor } }
+    );
 
       if (result.modifiedCount === 0 && initialupdate.modifiedCount === 0)  {
         return NextResponse.json({ ok: false, message: 'No documents updated' });

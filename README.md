@@ -1,5 +1,5 @@
 # Overview
-This is a Next.js project designed for managing **Renters** and **Floors** within an **Apartment** or **Building**. The core functionality has been implemented, but the application is currently unstyled (CSS and other design elements will be added in the future).
+This is a Next.js project designed for managing **Renters** and **Floors** within an **Apartment** or **Building**. The core functionality has been implemented, but the application is currently unstyled (CSS and other design elements will be added in the future). Total 3 collections inside the Database are used to make this project possible.
 
 # Features
 1. **Building and Floor Management**: 
@@ -10,6 +10,9 @@ This is a Next.js project designed for managing **Renters** and **Floors** withi
 3. **Delete Restrictions**:
    - Floors can only be deleted if they do not have any renters.
    - Buildings can only be deleted when there are no floors within them.
+4. **Login and Registeration System**:
+   - On Registration Page, there will be owner registeration only but while creating floors, owner can create renter profiles and that will be stored in user database with owner flag false.
+
 
 The application’s backend functionality is complete, and you can explore the code for further details.
 

@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 export default function Page() {
-  const [bid, setbid] = useState()
+  const [bid, setbid] = useState({})
   const [md, setmd]=useState([])
   const [ralert, setralert] = useState("")
   const router = useRouter();
@@ -20,13 +20,18 @@ export default function Page() {
         setralert("No DATA to show !")
       }
     }
-    if(bid){
+    if(bid.uid){
       // console.log(drobj)
-    fetchmdetails(bid)}
+    fetchmdetails(bid.uid)}
     
   },
-  [bid])
+  [bid.uid])
 
+  const chncred= (udtl) => {
+    const obj = { ...udtl, owner: false };
+    const eObj = encodeURIComponent(JSON.stringify(obj));
+    router.push(`/chngcred?udtl=${eObj}`);
+  };
 
   const handleClick = (mdt) => {
     const obj = mdt;
@@ -41,7 +46,10 @@ export default function Page() {
 
       </Suspense>
 
+   
+
 <div>Here the Details of renter month wise</div>
+<button className="bg-yellow-500" onClick={() =>chncred(bid)} >Change Password</button>
     {md.map(m=>{
       return <div key={m._id}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(m)}>Renter {m.uid}: {m.uname} with details of {m.month}.</button>  </div> 
   })}
@@ -51,20 +59,36 @@ export default function Page() {
     );
   }
 
-  function LoadParams({ setDbobj }) {
+  // function LoadParams({ setDbobj }) {
 
 
-    const searchParams = useSearchParams();
-    const udtl = searchParams.get('udtl');
-    useEffect(() => {
-      if (udtl) {
-      console.log(udtl)
-       setDbobj(
-          udtl
+  //   const searchParams = useSearchParams();
+  //   const udtl = searchParams.get('udtl');
+  //   useEffect(() => {
+  //     if (udtl) {
+  //     console.log(udtl)
+  //      setDbobj(
+  //         udtl
           
-        );
-      }}, [udtl, setDbobj]);
+  //       );
+  //     }}, [udtl, setDbobj]);
+  
+  //   return null;
+  // }
+  
+  function LoadParams({ setDbobj }) {
+    const searchParams = useSearchParams();
+    const id = searchParams.get('uid');
+    const name = searchParams.get('uname');
+    console.log(id,name)
+  const udtl={"uid":id,"uname":name}
+  console.log(udtl)
+    useEffect(() => {
+      if (id && name) {
+     
+        setDbobj(udtl);
+      }
+    }, [id,name, setDbobj]);
   
     return null;
   }
-  
