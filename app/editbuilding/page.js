@@ -52,17 +52,26 @@ export default function Page()  {
 <Suspense fallback={<div>Loading...</div>}>
         <LoadParams setDbobj={setbldmodel} />
       </Suspense>
-
-    <div>Edit the building:</div>
-    <form>
-        <label htmlFor="Bname">Building Name</label>
-        <input value={bldmodel?.Bname || ""} required type="text" name="Bname" id="Bname" onChange={onchange} />
-        {/* <label htmlFor="owner">Owner Name</label>
-        <input value={bldmodel?.owner || ""} required type="text" name="owner" id="owner" onChange={onchange} /> */}
+      <div className="py-5 my-5  space-y-4 ">
+      <div className="container w-11/12 lg:w-3/5 mx-auto border-2 border-indigo-500  p-6 rounded-lg shadow-lg">
+      <div className='text-center text-indigo-500 font-bold text-xl'> <h1>Edit the building:</h1> </div>
+    <form className="space-y-4">
+        <label htmlFor="Bname" className="block text-md font-semibold text-indigo-500">Building Name</label>
+        <input value={bldmodel?.Bname || ""} required type="text" name="Bname" id="Bname" placeholder='Enter New Building Name'
+         className=" w-full px-4 py-2 border border-indigo-500 text-indigo-50 bg-indigo-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-indigo-600" 
+         onChange={onchange} />
+        
         <br /> 
-        <button className="bg-green-600" onClick={updatebuilding}>Update</button>
+        <button className="w-full py-2 mt-4 border-2 border-indigo-500 bg-indigo-600 bg-opacity-20 text-indigo-500 font-semibold rounded-full hover:bg-indigo-700 hover:text-indigo-50 transition duration-300"
+        onClick={updatebuilding}>Update</button>
       </form>
-      <div className="text-green-600 text-center">{alert}</div>
+      </div>
+      {alert && (
+    <div className="text-center mt-4 text-indigo-200 font-semibold">
+      {alert}
+    </div>
+  )}
+  </div>
     </>
   );
 }

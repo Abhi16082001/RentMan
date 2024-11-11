@@ -192,39 +192,69 @@ console.error('Error:',error);
 <Suspense fallback={<div>Loading...</div>}>
         <LoadParams setDbobj={setbid} />
       </Suspense>
-   
+      <div className="py-2 my-5  space-y-4 ">
 
-    <div> Add the renters with floors here !!</div>
+
+      <div className="container w-11/12 lg:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-indigo-200 bg-opacity-50">
+<div className="flex justify-center font-extrabold font-mono text-xl text-indigo-100"> <h1>All Floors with Renters in Building</h1></div>
+    {rent.map(r=>{
+   return <div className='space-y-2 sm:space-y-3 text-lime-950 text-lg font-semibold bg-gradient-to-r from-indigo-400 to-sky-200 rounded-md p-4 shadow-lg hover:cursor-pointer hover:opacity-80 container mx-auto' 
+   key={r.floor}><span className="inline-block w-full sm:w-4/5" onClick={() => handleClick(r.uname,r.floor,r.uid)} >The Renter {r.uid}: {r.uname} lives in  {r.floor}.</span> 
+   <button className="hover:bg-red-700 text-white transition duration-300  w-full sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 "
+    onClick={() => deletefloor(r.uname,r.floor,r.uid)}>Delete</button> </div> 
+  })}
+  </div>
+   {dalert && (
+    <div className="text-center mt-4 text-red-200 font-semibold">
+      {dalert}
+    </div>
+  )}
+
+
+      <div className="container w-11/12 lg:w-3/5 mx-auto border-2 border-purple-500  p-6 rounded-lg shadow-lg">
+    <div className='text-center text-purple-500 font-bold text-xl'> Add the renters with floors here !!</div>
 
         <div>{user?(<>
-        <form>
-       <label htmlFor="floor">Floor Number/Name</label>
-       <input value={rentmodel?.floor || ""} required type="text" name="floor" id="floor" onChange={onchange} />
+        <form className="space-y-4">
+       <label htmlFor="floor" className="block text-md font-semibold text-purple-500">Floor Number/Name</label>
+       <input value={rentmodel?.floor || ""} required type="text" name="floor" id="floor"
+       className=" w-full px-4 py-2 border border-purple-500 text-purple-50 bg-purple-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+       onChange={onchange} />
        <br />
-       <button className="bg-green-600" onClick={addfloor}>Add Floor</button>  </form></> ):(
+       <button className="w-full py-2 mt-4 border-2 border-purple-500 bg-purple-600 bg-opacity-20 text-purple-500 font-semibold rounded-full hover:bg-purple-700 hover:text-purple-50 transition duration-300"
+       onClick={addfloor}>Add Floor</button>  </form></> ):(
         <>
-        <form>
-            <label htmlFor="uname">Renter Name</label>
-            <input value={rentmodel?.uname || ""} required type="text" name="uname" id="uname" onChange={onchange} />
-            <label htmlFor="uid">Renter ID:</label>
-            <input value={rentmodel?.uid || ""} required type="text" name="uid" id="uid" onChange={onchange} />
-            <label htmlFor="pwd">Renter Password:</label>
-            <input value={rentmodel?.pwd || ""} required type="text" name="pwd" id="pwd" onChange={onchange} />
-            <button className="bg-green-600" onClick={addrenter}>Add Renter</button>
+        <form className="space-y-4">
+            <label htmlFor="uname" className="block text-md font-semibold text-purple-500">Renter Name</label>
+            <input value={rentmodel?.uname || ""} required type="text" name="uname" id="uname" placeholder='Enter Renter Name'
+            className=" w-full px-4 py-2 border border-purple-500 text-purple-50 bg-purple-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+            onChange={onchange} />
+            <label htmlFor="uid" className="block text-md font-semibold text-purple-500">Renter ID:</label>
+            <input value={rentmodel?.uid || ""} required type="text" name="uid" id="uid" placeholder='Create Renter ID'
+            className=" w-full px-4 py-2 border border-purple-500 text-purple-50 bg-purple-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+            onChange={onchange} />
+            <label htmlFor="pwd" className="block text-md font-semibold text-purple-500">Renter Password:</label>
+            <input value={rentmodel?.pwd || ""} required type="text" name="pwd" id="pwd" placeholder='Create Renter Password'
+            className=" w-full px-4 py-2 border border-purple-500 text-purple-50 bg-purple-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600"
+            onChange={onchange} />
+            <button  className="w-full py-2 mt-4 border-2 border-purple-500 bg-purple-600 bg-opacity-20 text-purple-500 font-semibold rounded-full hover:bg-purple-700 hover:text-purple-50 transition duration-300"
+            onClick={addrenter}>Add Renter</button>
             </form>
             </>
        )}</div>
+
+       </div>
      
-      <div className="text-green-600 text-center">{alert}</div>
+       {alert && (
+    <div className="text-center mt-4 text-purple-200 font-semibold">
+      {alert}
+    </div>
+  )}
 
 
    
 
-    <h1>All Floors with Renters in Building</h1>
-    {rent.map(r=>{
-   return <div className="text-teal-700" key={r.floor}><p onClick={() => handleClick(r.uname,r.floor,r.uid)} >The Renter {r.uid}: {r.uname} lives in  {r.floor}.</p> <button className="bg-red-500" onClick={() => deletefloor(r.uname,r.floor,r.uid)}>Delete</button> </div> 
-  })}
-    <div className="text-red-600 text-center">{dalert}</div>
+    </div>
     </>
   );
 }

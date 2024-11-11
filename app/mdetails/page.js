@@ -123,51 +123,102 @@ export default function Page() {
         <LoadParams setDbobj={setdmodel} setdrobj={setdrobj} />
 
       </Suspense>
-      <p>Floor: {drobj ? drobj.floor : "Loading..."}</p>
-      <p>Renter Name: {drobj ? drobj.uname : "Loading..."}</p>
-      <p>Renter ID: {drobj ? drobj.uid : "Loading..."} </p>
-{/* <p>Floor: {drobj.floor}</p>
-  <p>Renter Name: {drobj.Rname}</p> */}
+      <div className="py-2 my-5  space-y-4 ">
+
+      
+      <div className='bg-gradient-to-r from-sky-500 to-green-400 text-center flex justify-around p-4 text-sky-50 font-bold text-md rounded-md'>
+      <span>Renter ID: {drobj ? drobj.uid : "Loading..."} </span>
+      <span>Renter Name: {drobj ? drobj.uname : "Loading..."}</span>
+        <span>Floor: {drobj ? drobj.floor : "Loading..."}</span>
+      </div>
 
 
-      <form>
-       <label htmlFor="month">Select Month and Year:</label>
-       <input value={dmodel?.month || ""} type="month" id="month" name="month" onChange={onchanger}/>
-        <label htmlFor="rent">Monthly Rent: </label>
-        <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent" onChange={onchanger} />
-        <label htmlFor="bill">Electricity Bill:</label>
-        <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill" onChange={onchanger} />
-        <label htmlFor="wbill">Water Bill:</label>
-        <input value={dmodel?.wbill || ""} required type="text" name="wbill" id="wbill" onChange={onchanger} />
-        <label htmlFor="mfee">Maid Fee:</label>
-        <input value={dmodel?.mfee || ""} required type="text" name="mfee" id="mfee" onChange={onchanger} />
-        <label htmlFor="pfee">Parking Fee:</label>
-        <input value={dmodel?.pfee || ""} required type="text" name="pfee" id="pfee" onChange={onchanger} />
-        <label htmlFor="mtot">Monthly Total:</label>
-        <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot" onChange={onchanger} />
-        <label htmlFor="bal">Previous Balance:</label>
-        <input value={dmodel?.bal || ""} required type="text" name="bal" id="bal" onChange={onchanger} />
-        <label htmlFor="gtot">Grand Total:</label>
-        <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot" onChange={onchanger} />
-        <label htmlFor="paid">How much Paid this Month: </label>
-        <input value={dmodel?.paid || ""} required type="text" name="paid" id="paid" onChange={onchanger} />
-        <label htmlFor="pddt">Paid on which Date: </label>
-        <input value={dmodel?.pddt || ""} required type="text" name="pddt" id="pddt" onChange={onchanger} />
-        <label htmlFor="topay">Current Balance to pay: </label>
-        <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay" onChange={onchanger} />
-        <br /> 
-        <button className="bg-green-600" onClick={addetails}>Add Month Details</button>
-      </form>
-      <div className="text-green-600 text-center">{ralert}</div>
-
-
-<div>Here the Details of renter month wise</div>
+      <div className="container w-11/12 lg:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-blue-200 bg-opacity-20">
+<div className="flex justify-center font-extrabold font-mono text-xl text-indigo-400"><h1>Here the Details of renter month wise</h1></div>
+<div className=' grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 p-1 gap-5 '>
     {md.map(m=>{
-      return <div key={m._id}><button  className='text-teal-400 hover:cursor-pointer' onClick={() => handleClick(m)}>Renter {m.uid}: {m.uname} with details of {m.month}.</button> <button className="bg-red-500" onClick={() => mdelete(m._id)}>Delete</button> </div> 
+      return <div key={m._id} className='rounded-lg font-mono hover:cursor-pointer p-4 bg-gradient-to-r from-green-200 to-blue-300'> 
+       <div onClick={() => handleClick(m)}>
+       <p className=' text-indigo-900 text-sm font-semibold'> Renter ID:  {m.uid}</p>
+       <p className=' text-indigo-900 text-sm font-semibold'> Renter Name :{m.uname}</p> 
+       <p className=' text-indigo-900 text-lg font-bold'> Month: {m.month}      </p>  </div>
+       <button className="bg-red-500 w-full text-white hover:bg-red-600 rounded-lg" 
+       onClick={() => mdelete(m._id)}>Delete</button>
+        </div> 
   })}
-<div className="text-red-600 text-center">{dalert}</div>
+  </div>
+  </div>
+  {dalert && (
+    <div className="text-center mt-4 text-red-200 font-semibold">
+      {dalert}
+    </div>
+  )}
+
+      <div className="container w-11/12 lg:w-3/5 mx-auto  border-2 border-sky-500 space-y-3 p-6 rounded-lg shadow-lg">
+      <div className="flex justify-center font-extrabold bg-blue-500 bg-opacity-55 rounded-xl p-2 font-mono text-xl text-blue-400"><h1>Add New Month Details </h1></div>
+      <form className="space-y-4">
+       <label  className="block text-md font-semibold text-sky-500" htmlFor="month">Select Month and Year:</label>
+       <input value={dmodel?.month || ""} type="month" id="month" name="month" 
+       className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-25 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+       onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="rent">Monthly Rent: </label>
+        <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="bill">Electricity Bill:</label>
+        <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="wbill">Water Bill:</label>
+        <input value={dmodel?.wbill || ""} required type="text" name="wbill" id="wbill" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="mfee">Maid Fee:</label>
+        <input value={dmodel?.mfee || ""} required type="text" name="mfee" id="mfee" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="pfee">Parking Fee:</label>
+        <input value={dmodel?.pfee || ""} required type="text" name="pfee" id="pfee" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="mtot">Monthly Total:</label>
+        <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="bal">Previous Balance:</label>
+        <input value={dmodel?.bal || ""} required type="text" name="bal" id="bal" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="gtot">Grand Total:</label>
+        <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="paid">How much Paid this Month: </label>
+        <input value={dmodel?.paid || ""} required type="text" name="paid" id="paid" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="pddt">Paid on which Date: </label>
+        <input value={dmodel?.pddt || ""} required type="text" name="pddt" id="pddt" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="topay">Current Balance to pay: </label>
+        <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <br /> 
+        <button className="w-full py-2 mt-4  bg-sky-500 bg-opacity-80 text-white font-semibold rounded-full hover:bg-sky-700  transition duration-300"
+         onClick={addetails}>Add Month Details</button>
+      </form>
+      </div>
+      {ralert && (
+    <div className="text-center mt-4 text-sky-200 font-semibold">
+      {ralert}
+    </div>
+  )}
+
+
   <br />
-  {/* <button className='bg-blue-500' onClick={() => handladdm()}>Add New Month</button> */}
+</div>
 </>
 
     );}

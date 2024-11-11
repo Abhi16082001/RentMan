@@ -1,62 +1,18 @@
-// "use client"
-// import React from 'react'
-// import Link from 'next/link'
-// import { useData } from '@/app/context/DataContext';
-// const Navbar = () => {
-//   const {setData}  = useData();
-//   const handleLogout = () => {
-//     setData(null);  // Set the context data to null
-//   };
-//   const Data = useData();
-// const user=Data.data
-//   return (
-//     <div>
-//       This is the Navbar !!
-//       <p>UserName: {user?user.uname:""}</p>
-//       <p>User ID: {user?user.uid:""}</p>
-//       <p>User Status: {user?(user.owner?"Owner":"Renter"):""}</p>
-//       <Link onClick={handleLogout} className='bg-indigo-500' href="/">
-//                 Log Out
-//             </Link>
-//     </div>
-//   )
-// }
 
-// export default Navbar
-
-
-"use client"
 import React from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation';
-// import { useData } from '@/app/context/DataContext';  // Adjust the import path accordingly
 
 const Navbar = () => {
-  const router = useRouter();
-  // const { data, setData } = useData();  // Access both data and setData in one hook
-
-  // const handleLogout = (e) => {
-  //   e.preventDefault();  // Prevent default link navigation behavior
-  //   setData(null);  // Set the context data to null
-  //   localStorage.removeItem('userData'); 
-  //   router.push("/");
-  // };
 
   return (
-    <div>
-      This is the Navbar !!
-      {/* {data ? (
-        <>
-          <p>UserName: {data.uname}</p>
-          <p>User ID: {data.uid}</p>
-          <p>User Status: {data.owner ? "Owner" : "Renter"}</p>
-        </>
-      ) : (
-        <p>No user data found.</p>
-      )} */}
+    <div className=' bg-violet-500 p-3 text-xl flex justify-between'>
+    <div className='bg-cyan-500 rounded-xl py-2 px-2 bg-opacity-30'>
+       <span className='text-teal-500 font-bold'>#</span>
+       <span className='text-gray'>R∉nt</span>
+       <span className='text-purple-700 font-bold'>Man</span>
+       </div>
 
-      {/* Use Link for navigation but prevent default link behavior on logout */}
-      <Link  href="/" className='bg-indigo-500'>
+      <Link  href="/" className='font-semibold text-purple-900 bg-purple-200 p-2 rounded-md hover:cursor-pointer hover:bg-purple-300'>
         Log Out
       </Link>
     </div>
