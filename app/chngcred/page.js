@@ -51,8 +51,8 @@ export default function Page()  {
       </Suspense>
       <div className=" py-2 my-5 space-y-4 ">
      
-      <div className='container w-11/12 sm:w-3/5 font-bold text-xl rounded-md p-4 text-blue-50 mx-auto bg-blue-500 bg-opacity-50'
-      >{umodel?(umodel.owner?(<>
+      <div className='container w-11/12 sm:w-3/5 font-bold text-xl rounded-md p-4 text-blue-50 mx-auto bg-blue-500 bg-opacity-50'>
+      {umodel?(umodel.owner?(<>
      
       <p >Owner ID:   {umodel?.uid||""}</p>
       </>):(<>

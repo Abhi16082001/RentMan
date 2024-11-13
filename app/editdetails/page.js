@@ -73,41 +73,90 @@ return (
 <Suspense fallback={<div>Loading...</div>}>
         <LoadParams setDbobj={setdmodel} />
       </Suspense>
+      <div className=" py-2 my-5 space-y-4 ">
 
+
+      <div className='container w-11/12 sm:w-3/5 font-extrabold font-mono text-xl rounded-md p-4 text-blue-950 mx-auto bg-gradient-to-r from-cyan-400 to-emerald-300 '>
     <p>Floor: {dmodel?dmodel.Bdetails.floor:"Loading..."}</p>
     <p>Month: {dmodel?dmodel.month:"Loading..."}</p>
     <p>Renter ID: {dmodel?dmodel.uid:"Loading..."}</p>
-    <form>
+  </div>
+
+
+  <div className="container w-11/12 lg:w-3/5 mx-auto  border-2 border-emerald-500 space-y-3 p-6 rounded-lg shadow-lg">
+      <div className="flex justify-center font-extrabold bg-emerald-500 bg-opacity-25 rounded-xl p-2 font-mono text-xl text-blue-200"><h1>Edit Month Details </h1></div>
+    <form className='space-y-4'>
   
-        <label htmlFor="uname">Renter Name:</label>
-        <input value={dmodel?.uname || ""} required type="text" name="uname" id="uname" onChange={onRchanger} />
-        <label htmlFor="rent">Rent:</label>
-        <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent" onChange={onchanger} />
-        <label htmlFor="bill">Bill:</label>
-        <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill" onChange={onchanger} />
-        <label htmlFor="wbill">Water Bill:</label>
-        <input value={dmodel?.wbill || ""} required type="text" name="wbill" id="wbill" onChange={onchanger} />
-        <label htmlFor="mfee">Maid Fee:</label>
-        <input value={dmodel?.mfee || ""} required type="text" name="mfee" id="mfee" onChange={onchanger} />
-        <label htmlFor="pfee">Parking Fee:</label>
-        <input value={dmodel?.pfee || ""} required type="text" name="pfee" id="pfee" onChange={onchanger} />
-        <label htmlFor="mtot">Monthly Total:</label>
-        <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot" onChange={onchanger} />
-        <label htmlFor="bal">Previous Balance:</label>
-        <input value={dmodel?.bal || ""} required type="text" name="bal" id="bal" onChange={onchanger} />
-        <label htmlFor="gtot">Grand Total:</label>
-        <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot" onChange={onchanger} />
-        <label htmlFor="paid">Paid this Month: </label>
-        <input value={dmodel?.paid || ""} required type="text" name="paid" id="paid" onChange={onchanger} />
-        <label htmlFor="pddt">Paid on which Date: </label>
-        <input value={dmodel?.pddt || ""} required type="text" name="pddt" id="pddt" onChange={onchanger} />
-        <label htmlFor="topay">Current Balance to pay: </label>
-        <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay" onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="uname">Renter Name:</label>
+        <input value={dmodel?.uname || ""} required type="text" name="uname" id="uname" 
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        onChange={onRchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="rent">Rent:</label>
+        <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="bill">Bill:</label>
+        <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="wbill">Water Bill:</label>
+        <input value={dmodel?.wbill || ""} required type="text" name="wbill" id="wbill"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="mfee">Maid Fee:</label>
+        <input value={dmodel?.mfee || ""} required type="text" name="mfee" id="mfee"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="pfee">Parking Fee:</label>
+        <input value={dmodel?.pfee || ""} required type="text" name="pfee" id="pfee"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="mtot">Monthly Total:</label>
+        <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="bal">Previous Balance:</label>
+        <input value={dmodel?.bal || ""} required type="text" name="bal" id="bal"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="gtot">Grand Total:</label>
+        <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="paid">Paid this Month: </label>
+        <input value={dmodel?.paid || ""} required type="text" name="paid" id="paid"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="pddt">Paid on which Date: </label>
+        <input value={dmodel?.pddt || ""} required type="text" name="pddt" id="pddt"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="topay">Current Balance to pay: </label>
+        <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay"
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+         onChange={onchanger} />
         <br /> 
-        <button className="bg-green-600" onClick={updatedetials}>Update Details</button>
+        <button className="w-full py-2 mt-4  bg-emerald-500 bg-opacity-80 text-white font-semibold rounded-full hover:bg-emerald-700  transition duration-300"
+         onClick={updatedetials}>Update Details</button>
       </form>
+      </div>
       <div className="text-green-600 text-center">{alert}</div>
     
+    
+    
+    </div>
     </>
 );
 }

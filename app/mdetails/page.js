@@ -21,6 +21,9 @@ export default function Page() {
   //   const drobj = robj ? JSON.parse(decodeURIComponent(robj)) : null;
   //   </Suspense>
   const [dalert, setdalert] = useState()
+  const [warn, setwarn] = useState(false)
+  const [mon, setmon] = useState("")
+  const [wid, setwid] = useState("")
     const [ralert, setralert] = useState("")
     const [dmodel, setdmodel]= useState(null)
     const [drobj, setdrobj] = useState(null)
@@ -73,6 +76,14 @@ export default function Page() {
         setdmodel({...dmodel,[e.target.name]:e.target.value})
         
       }
+     
+      const handledel = (mid,mn) => {
+       setwid(mid);
+       setwarn(true);
+       setmon(mn);
+       console.log(wid, warn)
+       
+      };
 
 
       const addetails = async (e) => {
@@ -111,6 +122,7 @@ export default function Page() {
         const encodedObj = encodeURIComponent(JSON.stringify(obj));
         router.push(`/rdetails?mobj=${encodedObj}`);
       };
+    
     //   const handladdm = (mdt) => {
     //     const obj = { Bid:drobj.Bid, Rname:drobj.Rname,floor:drobj.floor };
     //     const encodedObj = encodeURIComponent(JSON.stringify(obj));
@@ -130,6 +142,7 @@ export default function Page() {
       <span>Renter ID: {drobj ? drobj.uid : "Loading..."} </span>
       <span>Renter Name: {drobj ? drobj.uname : "Loading..."}</span>
         <span>Floor: {drobj ? drobj.floor : "Loading..."}</span>
+        
       </div>
 
 
@@ -138,13 +151,28 @@ export default function Page() {
 <div className=' grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 p-1 gap-5 '>
     {md.map(m=>{
       return <div key={m._id} className='rounded-lg font-mono hover:cursor-pointer p-4 bg-gradient-to-r from-green-200 to-blue-300'> 
+       {(warn && wid===m.uid && mon==m.month)?(<><div onClick={() => handleClick(m)}>
+       <p className=' text-indigo-900 text-sm font-semibold'> Renter ID:  {m.uid}</p>
+       <p className=' text-indigo-900 text-sm font-semibold'> Renter Name :{m.uname}</p> 
+       <p className=' text-indigo-900 text-sm font-bold'> Month: {m.month}      </p>  
+       <p className=' text-red-500 text-sm font-bold'> Deletion ! Sure ?</p>
+       </div>
+       <div className='space-y-2'>
+       <button className="bg-red-500 w-full text-white hover:bg-red-600 rounded-lg" 
+       onClick={() => mdelete(m._id)}>Yes</button>
+       <button className="bg-green-500 w-full text-white hover:bg-green-600 rounded-lg" 
+       onClick={() =>setwarn(false)}>No</button></div>
+       </>):
+       (<>
        <div onClick={() => handleClick(m)}>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter ID:  {m.uid}</p>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter Name :{m.uname}</p> 
        <p className=' text-indigo-900 text-lg font-bold'> Month: {m.month}      </p>  </div>
        <button className="bg-red-500 w-full text-white hover:bg-red-600 rounded-lg" 
-       onClick={() => mdelete(m._id)}>Delete</button>
-        </div> 
+       onClick={() =>handledel(m.uid,m.month)}>Delete</button>
+       </>)
+       }</div>
+         
   })}
   </div>
   </div>
@@ -152,7 +180,7 @@ export default function Page() {
     <div className="text-center mt-4 text-red-200 font-semibold">
       {dalert}
     </div>
-  )}
+  )} 
 
       <div className="container w-11/12 lg:w-3/5 mx-auto  border-2 border-sky-500 space-y-3 p-6 rounded-lg shadow-lg">
       <div className="flex justify-center font-extrabold bg-blue-500 bg-opacity-55 rounded-xl p-2 font-mono text-xl text-blue-400"><h1>Add New Month Details </h1></div>

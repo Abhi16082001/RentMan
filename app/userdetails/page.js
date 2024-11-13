@@ -10,23 +10,39 @@ export default function Page() {
   <Suspense fallback={<div>Loading...</div>}>
         <LoadParams setDbobj={setdmobj} />
       </Suspense>
-  
-      <div>These are the All Details</div>
-      <p>Month: {dmobj?dmobj.month: "Loading..."}</p>
-      <p>Floor Name: {dmobj?dmobj.Bdetails.floor: "Loading..."}</p>
-      <p>Renter ID: {dmobj?dmobj.uid: "Loading..."}</p>
-      <p>Renter Name: {dmobj?dmobj.uname: "Loading..."}</p>
-      <p>Month Rent: {dmobj?dmobj.rent: "Loading..."}</p>
-      <p>Electricity Bill: {dmobj?dmobj.bill: "Loading..."}</p>
-      <p>Water Bill  :{dmobj?dmobj.wbill: "Loading..."}</p>
+
+
+<div className="container w-11/12 lg:w-3/5 mx-auto my-5 p-4 space-y-3 rounded-md shadow-lg bg-indigo-500 bg-opacity-50">
+      <div className="flex justify-center font-extrabold underline font-mono text-xl text-indigo-100"> <h1>All Details of Renter of Chosen Month </h1></div>
+      <div className='bg-gradient-to-r from-indigo-400 to-rose-300 p-3 rounded-sm text-lg  font-semibold font-mono sm:flex flex-row  gap-20 md:gap-60'>
+        <div><p>Renter ID: {dmobj?dmobj.uid: "Loading..."}</p>
+      <p>Renter Name: {dmobj?dmobj.uname: "Loading..."}</p></div>
+     <div> <p>Floor Name: {dmobj?dmobj.Bdetails.floor: "Loading..."}</p>
+      <p>Month: {dmobj?dmobj.month: "Loading..."}</p></div>
+      </div>
+      <div className=' space-y-2 p-4 grid grid-cols-1 sm:grid-cols-2   gap-5'>
+
+     <div className='bg-gradient-to-r from-yellow-100 to-cyan-200 p-3  rounded-lg text-lg text-blue-900 font-semibold font-mono'><p>Month Rent: {dmobj?dmobj.rent: "Loading..."}</p>
       <p>Maid Fee   :{dmobj?dmobj.mfee: "Loading..."}</p>
-      <p>Parking Fee  :{dmobj?dmobj.pfee: "Loading..."}</p>
-      <p>Monthly Total   :{dmobj?dmobj.mtot: "Loading..."}</p>
+      <p>Parking Fee  :{dmobj?dmobj.pfee: "Loading..."}</p> </div>
+
+      <div className='bg-gradient-to-r from-yellow-100 to-cyan-200 p-3  rounded-lg text-lg text-blue-900 font-semibold font-mono'><p>Electricity Bill: {dmobj?dmobj.bill: "Loading..."}</p>
+      <p>Water Bill  :{dmobj?dmobj.wbill: "Loading..."}</p> </div>
+
+      <div className='bg-gradient-to-r from-yellow-100 to-cyan-200 p-3  rounded-lg text-lg text-blue-900 font-semibold font-mono'>
       <p>Previous Balance   :{dmobj?dmobj.bal: "Loading..."}</p>
-      <p>Grand Total   :{dmobj?dmobj.gtot: "Loading..."}</p>
-      <p>Paid this month:{dmobj?dmobj.paid: "Loading..."}</p>
+        <p>This Month Total   :{dmobj?dmobj.mtot: "Loading..."}</p>
+      <p>Grand Total   :{dmobj?dmobj.gtot: "Loading..."}</p></div>
+
+      <div className='bg-gradient-to-r from-yellow-100 to-cyan-200 p-3  rounded-lg text-lg text-blue-900 font-semibold font-mono'><p>Paid this month:{dmobj?dmobj.paid: "Loading..."}</p>
       <p>Paid On: {dmobj?dmobj.pddt: "Loading..."}</p>
-      <p>Current Balance to Pay:{dmobj?dmobj.topay:"Loading ..."} </p>
+      <p>Current Balance to Pay:{dmobj?dmobj.topay:"Loading ..."} </p></div>
+      </div>
+    
+      </div>
+
+
+
   </>
   
     );

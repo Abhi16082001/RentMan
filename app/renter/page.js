@@ -198,7 +198,7 @@ console.error('Error:',error);
       <div className="container w-11/12 lg:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-indigo-200 bg-opacity-50">
 <div className="flex justify-center font-extrabold font-mono text-xl text-indigo-100"> <h1>All Floors with Renters in Building</h1></div>
     {rent.map(r=>{
-   return <div className='space-y-2 sm:space-y-3 text-lime-950 text-lg font-semibold bg-gradient-to-r from-indigo-400 to-sky-200 rounded-md p-4 shadow-lg hover:cursor-pointer hover:opacity-80 container mx-auto' 
+   return <div className='space-y-2 sm:space-y-3 text-lime-950 text-lg font-semibold bg-gradient-to-r from-purple-300 to-gray-250 rounded-md p-4 shadow-lg hover:cursor-pointer hover:opacity-80 container mx-auto' 
    key={r.floor}><span className="inline-block w-full sm:w-4/5" onClick={() => handleClick(r.uname,r.floor,r.uid)} >The Renter {r.uid}: {r.uname} lives in  {r.floor}.</span> 
    <button className="hover:bg-red-700 text-white transition duration-300  w-full sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 "
     onClick={() => deletefloor(r.uname,r.floor,r.uid)}>Delete</button> </div> 
