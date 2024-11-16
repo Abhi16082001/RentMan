@@ -8,6 +8,7 @@ export default function Page() {
   const [bldmodel, setbldmodel] = useState({ rentfloor: [] });
   const [bld, setbld] = useState([]);
   const [alert, setalert] = useState("");
+  const [balert, setbalert] = useState("");
   const [dalert, setdalert] = useState("");
   // const searchParams = useSearchParams();
   // const udtl = searchParams.get('udtl');
@@ -16,7 +17,7 @@ export default function Page() {
     let bjson = await response.json();
     setbld(bjson.Build);
     console.log(bld)
-    if (bjson.Build.length === 0) setalert("No Buildings Added");
+    if (bjson.Build.length === 0) setbalert("No Buildings Added");
   };
 
   useEffect(() => {
@@ -159,6 +160,14 @@ export default function Page() {
       {dalert}
     </div>
   )}
+
+
+{balert && (
+    <div className="text-center mt-4 text-green-200 font-semibold">
+      {balert}
+    </div>
+  )}
+
       </div>
       </div>
     </>
