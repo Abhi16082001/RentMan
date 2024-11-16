@@ -102,7 +102,7 @@ export default function Page() {
  <div className="font-semibold text-blue-500 text-md bg-blue-500 bg-opacity-5 rounded-md p-3 space-y-2"> <p>OWNER ID: {bid?bid.uid:"Loading..."}</p>
   <p>OWNER NAME: {bid?bid.uname:"Loading..."}</p> </div>
   <div className="flex justify-center">
-    <button className=" w-full  p-2 border-2 border-blue-500 bg-blue-500 bg-opacity-10  rounded-full font-semibold text-blue-500  hover:bg-blue-700 hover:text-blue-50 transition duration-300" onClick={() => chncred(bid)}>
+    <button className=" w-full  p-2 border-2 border-blue-500 bg-blue-500 bg-opacity-10  rounded-full font-semibold text-blue-500  hover:bg-blue-700 hover:text-blue-50 " onClick={() => chncred(bid)}>
       Change Credentials
     </button>
   </div>
@@ -129,7 +129,7 @@ export default function Page() {
     
     <button
       type="submit"
-      className="w-full py-2 mt-4 border-2 border-green-500 bg-green-600 bg-opacity-5 text-green-500 font-semibold rounded-full hover:bg-green-700 hover:text-green-50 transition duration-300"
+      className="w-full py-2 mt-4 border-2 border-green-500 bg-green-600 bg-opacity-5 text-green-500 font-semibold rounded-full hover:bg-green-700 hover:text-green-50 "
     >
       Add Building
     </button>
@@ -151,8 +151,8 @@ export default function Page() {
           >
              
            <span onClick={() => handleClick(b.Bname, b._id)} className="inline-block w-full sm:w-3/5">{b.Bname}</span>
-          <button className="hover:bg-green-700 text-white transition duration-300  w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-green-500 " onClick={() => handledit(b._id, b.Bname)}>Edit</button>
-          <button className="hover:bg-red-700 text-white transition duration-300  w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 " onClick={() => deletebuilding(b._id)}>Delete</button>
+          <button className="hover:bg-green-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-green-500 " onClick={() => handledit(b._id, b.Bname)}>Edit</button>
+          <button className="hover:bg-red-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 " onClick={() => deletebuilding(b._id)}>Delete</button>
         </div> 
       ))}
          {dalert && (
