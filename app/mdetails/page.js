@@ -175,6 +175,12 @@ export default function Page() {
          
   })}
   </div>
+
+  {ralert && (
+    <div className="text-center mt-4 text-sky-200 font-semibold">
+      {ralert}
+    </div>
+  )}
   </div>
   {dalert && (
     <div className="text-center mt-4 text-red-200 font-semibold">
@@ -238,11 +244,7 @@ export default function Page() {
          onClick={addetails}>Add Month Details</button>
       </form>
       </div>
-      {ralert && (
-    <div className="text-center mt-4 text-sky-200 font-semibold">
-      {ralert}
-    </div>
-  )}
+    
 
 
   <br />
