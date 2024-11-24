@@ -25,6 +25,7 @@ export default function Page() {
   const [mon, setmon] = useState("")
   const [wid, setwid] = useState("")
     const [ralert, setralert] = useState("")
+    const [alert, setalert] = useState("")
     const [dmodel, setdmodel]= useState(null)
     const [drobj, setdrobj] = useState(null)
     const [md, setmd]=useState([])
@@ -87,7 +88,7 @@ export default function Page() {
 
 
       const addetails = async (e) => {
-        setralert("Adding Details...")
+        setalert("Adding Details...")
         e.preventDefault();
         // const floor = flr; // Replace with the actual ID of the document you want to update
         const co = { Bdetails:{"Bid":drobj.Bid,"floor":drobj.floor},...dmodel }; 
@@ -102,11 +103,11 @@ export default function Page() {
         console.log(data)
         if(data.ok){
         console.log("Detials Added Sucessfully ! ")
-        setralert("Detials Added Successfully !!")
+        setalert("Detials Added Successfully !!")
         setdmodel({})
         }
         else if(!data.ok || !data.success){
-          setralert(data.message)
+          setalert(data.message)
         } 
         else{
         console.log("Error adding detials !!")
@@ -243,6 +244,14 @@ export default function Page() {
         <button className="w-full py-2 mt-4  bg-sky-500 bg-opacity-80 text-white font-semibold rounded-full hover:bg-sky-700  transition duration-300"
          onClick={addetails}>Add Month Details</button>
       </form>
+
+
+      {alert && (
+    <div className="text-center mt-4 text-sky-200 font-semibold">
+      {alert}
+    </div>
+  )}
+
       </div>
     
 

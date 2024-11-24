@@ -71,7 +71,7 @@ export default function Page() {
         onChange={onchange} />
         <br /> 
         <button  className="w-full p-3 mt-4 border-2 border-cyan-500 bg-cyan-600 bg-opacity-20 text-cyan-500 font-semibold rounded-full hover:text-cyan-50 hover:bg-cyan-600 transition duration-300"
-         onClick={fetchuser}>Login</button>
+         onClick={fetchuser}>Log In</button>
       </form>
 </div>
 {alert && (

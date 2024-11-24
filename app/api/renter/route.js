@@ -91,14 +91,16 @@ if (existingFloorIndex !== -1) {
       // Parse the request body to get the ID or any unique identifier for deletion
       const renter = await request.json(); // Assuming the request body contains the ID to delete
       const unm=renter.uname
+      const rid=renter.uid
       const floor=renter.floor
       const Bid=renter.bid
-  console.log(renter)
+  console.log(renter) 
   const client = await getClient();
       try {
           const database = client.db('BuildingsDB');
           const bldngs = database.collection('buildings');
           const rntrs= database.collection('renters');
+          const usrs= database.collection('users');
           const query = {
             "Bdetails.Bid": Bid,
             "Bdetails.floor": floor,
@@ -119,7 +121,9 @@ if (existingFloorIndex !== -1) {
             }
           )
   
-          if (result.modifiedCount === 1) {
+          const result2 = await usrs.deleteOne({ uid: rid });
+
+          if (result.modifiedCount === 1 && result2.deletedCount === 1) {
               console.log(`Successfully deleted the Renter ${unm} of ${floor} Floor`);
               return NextResponse.json({ message: `Renter ${unm} of ${floor} Floor deleted successfully.`, ok: true });
           } else {
