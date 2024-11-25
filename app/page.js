@@ -1,7 +1,8 @@
 "use client"
 import React from 'react'
-import { useState} from "react";
+import { useState,useEffect} from "react";
 import Link from 'next/link';
+import { RiLoginCircleLine } from "react-icons/ri";
 import { useRouter } from 'next/navigation';
 
 export default function Page() {
@@ -9,6 +10,7 @@ export default function Page() {
     const [umodel, setumodel] = useState(null)
     const [alert, setalert] = useState("")
 
+  
     const onchange=(e) => {
         setumodel({
           ...umodel,
@@ -70,8 +72,12 @@ export default function Page() {
         className="text-cyan-50 w-full p-3 border-2 border-cyan-500 bg-cyan-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-cyan-600"
         onChange={onchange} />
         <br /> 
-        <button  className="w-full p-3 mt-4 border-2 border-cyan-500 bg-cyan-600 bg-opacity-20 text-cyan-500 font-semibold rounded-full hover:text-cyan-50 hover:bg-cyan-600 transition duration-300"
-         onClick={fetchuser}>Log In</button>
+        <button   className=" flex justify-center items-center  w-full p-3 mt-4 border-2 border-cyan-500 bg-cyan-600 bg-opacity-20 text-cyan-500 font-semibold rounded-full hover:text-cyan-50 hover:bg-cyan-600 transition duration-300"
+         onClick={fetchuser}>
+       
+       <RiLoginCircleLine size={30}  />
+Log In
+         </button>
       </form>
 </div>
 {alert && (

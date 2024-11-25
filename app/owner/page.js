@@ -1,6 +1,8 @@
 "use client"
 import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
+import { TbEditCircle } from "react-icons/tb";
+import { RiDeleteBin5Line } from "react-icons/ri";
 
 export default function Page() {
   const router = useRouter();
@@ -151,8 +153,8 @@ export default function Page() {
           >
              
            <span onClick={() => handleClick(b.Bname, b._id)} className="inline-block w-full sm:w-3/5">{b.Bname}</span>
-          <button className="hover:bg-green-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-green-500 " onClick={() => handledit(b._id, b.Bname)}>Edit</button>
-          <button className="hover:bg-red-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 " onClick={() => deletebuilding(b._id)}>Delete</button>
+          <button className= "   hover:bg-green-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-green-500 " onClick={() => handledit(b._id, b.Bname)}><TbEditCircle style={{ margin: 'auto', display: 'block' }} size={30}  /></button>
+          <button className="hover:bg-red-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 " onClick={() => deletebuilding(b._id)}><RiDeleteBin5Line style={{ margin: 'auto', display: 'block' }} size={30} /></button>
         </div> 
       ))}
          {dalert && (
