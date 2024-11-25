@@ -150,7 +150,7 @@ export default function Page() {
 
 
       <div className="container w-11/12 lg:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-blue-200 bg-opacity-20">
-<div className="flex justify-center font-extrabold font-mono text-xl text-indigo-400"><h1>Here the Details of renter month wise</h1></div>
+<div className="flex justify-center font-extrabold font-mono text-xl text-indigo-400"><h1 className='text-center'>Here the Details of renter month wise</h1></div>
 <div className=' grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 p-1 gap-5 '>
     {md.map(m=>{
       return <div key={m._id} className='rounded-lg font-mono hover:cursor-pointer p-4 bg-gradient-to-r from-green-200 to-blue-300'> 

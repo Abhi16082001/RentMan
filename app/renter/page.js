@@ -203,7 +203,7 @@ console.error('Error:',error);
       <div className="container w-11/12 lg:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-indigo-200 bg-opacity-50">
 <div className="flex justify-center gap-2 font-extrabold font-mono text-xl text-indigo-100"> 
 <SiLevelsdotfyi size={25}/>
-  <h1>All Floors with Renters in Building</h1></div>
+  <h1 className='text-center'>All Floors with Renters in Building</h1></div>
     {rent.map(r=>{
    return <div className='space-y-2 sm:space-y-3 text-lime-950 text-lg font-semibold bg-gradient-to-r from-purple-300 to-gray-250 rounded-md p-4 shadow-lg hover:cursor-pointer hover:opacity-80 container mx-auto' 
    key={r.floor}><span className="inline-block w-full sm:w-4/5" onClick={() => handleClick(r.uname,r.floor,r.uid)} > <IoIosPerson size={25}/> {r.uid}: {r.uname} {`-->`}  {r.floor}.</span> 

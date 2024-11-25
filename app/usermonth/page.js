@@ -54,7 +54,7 @@ export default function Page() {
 
 
       <div className="container w-11/12 lg:w-3/5 mx-auto  space-y-3 p-6 rounded-lg shadow-lg">
-      <div className="flex justify-center gap-2 font-extrabold text-xl text-blue-200 font-mono"><h1>YOUR DASHBOARD</h1>
+      <div className="flex justify-center gap-2 font-extrabold text-xl text-blue-200 font-mono"><h1 className='text-center'>YOUR DASHBOARD</h1>
       <FaAddressCard size={30} /></div>
       <div className="font-semibold text-cyan-100 text-md bg-blue-500 bg-opacity-20 rounded-md p-3 space-y-2"> 
        
@@ -67,7 +67,7 @@ onClick={() =>chncred(bid)} >Change Password
 
 </div>
 
-      <div className="flex justify-center font-extrabold bg-blue-500 bg-opacity-25 rounded-xl p-2 font-mono text-xl text-violet-500"><h1>Here the Details Month wise </h1></div>
+      <div className="flex justify-center font-extrabold bg-blue-500 bg-opacity-25 rounded-xl p-2 font-mono text-xl text-violet-500"><h1 className='text-center'>Here the Details Month wise </h1></div>
       <div className="container w-11/12 lg:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-blue-200 bg-opacity-20">
       <div className=' grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 p-1 gap-5 '>
     {md.map(m=>{

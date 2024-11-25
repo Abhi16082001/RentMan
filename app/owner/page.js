@@ -105,7 +105,7 @@ export default function Page() {
       </Suspense>
 
  <div className="container w-11/12 sm:w-3/5 mx-auto p-4 space-y-3 bg-blue-300 bg-opacity-15  rounded-md shadow-lg">
-  <div className="flex justify-self-center gap-2 font-extrabold text-xl text-blue-200 font-mono"><h1>YOUR DASHBOARD</h1>  
+  <div className="flex justify-self-center gap-2 font-extrabold text-xl text-blue-200 font-mono"><h1 className="text-center">YOUR DASHBOARD</h1>  
    <FaAddressCard size={30} /></div>
  <div className="font-semibold text-blue-500 text-md bg-blue-500 bg-opacity-5 rounded-md p-3 space-y-2"> <p>OWNER ID: {bid?bid.uid:"Loading..."}</p>
   <p>OWNER NAME: {bid?bid.uname:"Loading..."}</p> </div>
@@ -154,7 +154,7 @@ export default function Page() {
 <div className="container w-11/12 sm:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-teal-200 bg-opacity-50">
       <div className="flex justify-center gap-2 font-extrabold font-mono text-xl text-teal-100">
       <BsFillBuildingsFill size={30}/>
-        <h1>ALL BUILDINGS/APARTMENTS</h1>
+        <h1 className="text-center">ALL BUILDINGS/APARTMENTS</h1>
       </div>
       {bld.map((b) => (
         <div key={b._id}
