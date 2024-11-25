@@ -4,6 +4,8 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { FaCalendarPlus } from "react-icons/fa";
+import { MdCalendarMonth } from "react-icons/md";
 
 // const page = () => {
  
@@ -155,7 +157,7 @@ export default function Page() {
        {(warn && wid===m.uid && mon==m.month)?(<><div onClick={() => handleClick(m)}>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter ID:  {m.uid}</p>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter Name :{m.uname}</p> 
-       <p className=' text-indigo-900 text-sm font-bold'> Month: {m.month}      </p>  
+       <p className=' text-indigo-900 text-sm font-bold flex justify-start gap-2'> <MdCalendarMonth size={20} />: {m.month}      </p>  
        <p className=' text-red-500 text-sm font-bold'> Deletion ! Sure ?</p>
        </div>
        <div className='space-y-2'>
@@ -168,7 +170,7 @@ export default function Page() {
        <div onClick={() => handleClick(m)}>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter ID:  {m.uid}</p>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter Name :{m.uname}</p> 
-       <p className=' text-indigo-900 text-lg font-bold'> Month: {m.month}      </p>  </div>
+       <p className=' text-indigo-900 text-lg font-bold flex justify-start gap-2'> <MdCalendarMonth size={35} />: {m.month}      </p>  </div>
        <button className="bg-red-500 w-full text-white hover:bg-red-600 rounded-lg" 
        onClick={() =>handledel(m.uid,m.month)}>Delete</button>
        </>)
@@ -241,8 +243,10 @@ export default function Page() {
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
         <br /> 
-        <button className="w-full py-2 mt-4  bg-sky-500 bg-opacity-80 text-white font-semibold rounded-full hover:bg-sky-700  transition duration-300"
-         onClick={addetails}>Add Month Details</button>
+        <button className="flex justify-center gap-2 w-full py-2 mt-4  bg-sky-500 bg-opacity-80 text-white font-semibold rounded-full hover:bg-sky-700  transition duration-300"
+         onClick={addetails}>
+          <FaCalendarPlus size={25} />
+          Add Month Details</button>
       </form>
 
 

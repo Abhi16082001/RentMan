@@ -4,6 +4,7 @@ import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { BiSolidEditAlt } from "react-icons/bi";
 export default function Page() {
   const router = useRouter();
   const [dmobj, setdmobj] = useState(null)
@@ -82,8 +83,9 @@ export default function Page() {
       <p>Paid On: {dmobj?dmobj.pddt: "Loading..."}</p>
       <p>Current Balance to Pay:{dmobj?dmobj.topay:"Loading ..."} </p></div>
       </div>
-      <button className="bg-yellow-500 bg-opacity-25 w-full p-2.5 rounded-full border-2 border-yellow-500 text-yellow-50  text-lg font-semibold hover:bg-yellow-200 hover:text-blue-950 " 
-       onClick={() => handledit(dmobj)}>Edit Detials</button>
+      <button className=" flex justify-center items-center bg-yellow-500 bg-opacity-25 w-full p-2.5 rounded-full border-2 border-yellow-500 text-yellow-50  text-lg font-semibold hover:bg-yellow-200 hover:text-blue-950 " 
+       onClick={() => handledit(dmobj)}><BiSolidEditAlt   size={30}/> Edit
+</button>
       </div>
 
     </>

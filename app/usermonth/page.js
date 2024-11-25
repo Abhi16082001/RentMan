@@ -4,6 +4,10 @@ import React from 'react'
 import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { FaAddressCard } from "react-icons/fa6";
+import { MdOutlinePassword } from "react-icons/md";
+
+import { MdCalendarMonth } from "react-icons/md";
 export default function Page() {
   const [bid, setbid] = useState({})
   const [md, setmd]=useState([])
@@ -50,14 +54,16 @@ export default function Page() {
 
 
       <div className="container w-11/12 lg:w-3/5 mx-auto  space-y-3 p-6 rounded-lg shadow-lg">
-      <div className="flex justify-center font-extrabold text-xl text-blue-200 font-mono"><h1>YOUR DASHBOARD</h1></div>
+      <div className="flex justify-center gap-2 font-extrabold text-xl text-blue-200 font-mono"><h1>YOUR DASHBOARD</h1>
+      <FaAddressCard size={30} /></div>
       <div className="font-semibold text-cyan-100 text-md bg-blue-500 bg-opacity-20 rounded-md p-3 space-y-2"> 
        
         <p>RENTER ID: {bid?bid.uid:"Loading..."}</p>
       <p>RENTER NAME: {bid?bid.uname:"Loading..."}</p> 
 </div>
-<button className=" w-full  p-2 border-2 border-cyan-500 bg-cyan-500 bg-opacity-20  rounded-full font-semibold text-cyan-500  hover:bg-cyan-700 hover:text-cyan-50 transition duration-300" 
-onClick={() =>chncred(bid)} >Change Password</button>
+<button className="flex justify-center gap-2 w-full  p-2 border-2 border-cyan-500 bg-cyan-500 bg-opacity-20  rounded-full font-semibold text-cyan-500  hover:bg-cyan-700 hover:text-cyan-50 transition duration-300" 
+onClick={() =>chncred(bid)} >Change Password
+  <MdOutlinePassword size={30}/></button>
 
 </div>
 
@@ -69,7 +75,7 @@ onClick={() =>chncred(bid)} >Change Password</button>
       onClick={() => handleClick(m)}>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter ID:  {m.uid}</p>
        <p className=' text-indigo-900 text-sm font-semibold'> Renter Name :{m.uname}</p> 
-       <p className=' text-indigo-900 text-xl font-bold'> Month: {m.month}      </p> 
+       <p className=' text-indigo-900 text-xl font-bold flex justify-start gap-2'> <MdCalendarMonth size={35} />: {m.month}      </p> 
        </div>
   })}
   </div>

@@ -3,6 +3,11 @@ import React, { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { TbEditCircle } from "react-icons/tb";
 import { RiDeleteBin5Line } from "react-icons/ri";
+import { FaAddressCard } from "react-icons/fa6";
+import { TbPasswordUser } from "react-icons/tb";
+import { BsBuildingFillAdd } from "react-icons/bs";
+import { BsFillBuildingsFill } from "react-icons/bs";
+
 
 export default function Page() {
   const router = useRouter();
@@ -100,11 +105,13 @@ export default function Page() {
       </Suspense>
 
  <div className="container w-11/12 sm:w-3/5 mx-auto p-4 space-y-3 bg-blue-300 bg-opacity-15  rounded-md shadow-lg">
-  <div className="flex justify-center font-extrabold text-xl text-blue-200 font-mono"><h1>YOUR DASHBOARD</h1></div>
+  <div className="flex justify-self-center gap-2 font-extrabold text-xl text-blue-200 font-mono"><h1>YOUR DASHBOARD</h1>  
+   <FaAddressCard size={30} /></div>
  <div className="font-semibold text-blue-500 text-md bg-blue-500 bg-opacity-5 rounded-md p-3 space-y-2"> <p>OWNER ID: {bid?bid.uid:"Loading..."}</p>
   <p>OWNER NAME: {bid?bid.uname:"Loading..."}</p> </div>
   <div className="flex justify-center">
-    <button className=" w-full  p-2 border-2 border-blue-500 bg-blue-500 bg-opacity-10  rounded-full font-semibold text-blue-500  hover:bg-blue-700 hover:text-blue-50 " onClick={() => chncred(bid)}>
+    <button className=" w-full flex justify-center gap-2  p-2 border-2 border-blue-500 bg-blue-500 bg-opacity-10  rounded-full font-semibold text-blue-500  hover:bg-blue-700 hover:text-blue-50 " onClick={() => chncred(bid)}>
+    <TbPasswordUser size={30} />
       Change Credentials
     </button>
   </div>
@@ -131,8 +138,8 @@ export default function Page() {
     
     <button
       type="submit"
-      className="w-full py-2 mt-4 border-2 border-green-500 bg-green-600 bg-opacity-5 text-green-500 font-semibold rounded-full hover:bg-green-700 hover:text-green-50 "
-    >
+      className="flex justify-center gap-2 w-full py-2 mt-4 border-2 border-green-500 bg-green-600 bg-opacity-5 text-green-500 font-semibold rounded-full hover:bg-green-700 hover:text-green-50 "
+    ><BsBuildingFillAdd size={20} />
       Add Building
     </button>
   </form>
@@ -145,17 +152,17 @@ export default function Page() {
 </div>
 
 <div className="container w-11/12 sm:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-teal-200 bg-opacity-50">
-      <div className="flex justify-center font-extrabold font-mono text-xl text-teal-100"><h1>ALL BUILDINGS/APARTMENTS</h1></div>
+      <div className="flex justify-center gap-2 font-extrabold font-mono text-xl text-teal-100">
+      <BsFillBuildingsFill size={30}/>
+        <h1>ALL BUILDINGS/APARTMENTS</h1>
+      </div>
       {bld.map((b) => (
         <div key={b._id}
-            className='space-y-2 sm:space-y-3 text-teal-950 text-lg font-semibold bg-gradient-to-r from-cyan-400 to-green-300 rounded-md p-4 shadow-lg hover:cursor-pointer hover:opacity-80 container mx-auto'
-            
-          >
-             
-           <span onClick={() => handleClick(b.Bname, b._id)} className="inline-block w-full sm:w-3/5">{b.Bname}</span>
-          <button className= "   hover:bg-green-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-green-500 " onClick={() => handledit(b._id, b.Bname)}><TbEditCircle style={{ margin: 'auto', display: 'block' }} size={30}  /></button>
-          <button className="hover:bg-red-700 text-white   w-1/2 sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 " onClick={() => deletebuilding(b._id)}><RiDeleteBin5Line style={{ margin: 'auto', display: 'block' }} size={30} /></button>
-        </div> 
+            className='space-y-2 sm:space-y-3 xs:flex justify-between text-teal-950 text-lg font-semibold bg-gradient-to-r from-cyan-400 to-green-300 rounded-md p-4 shadow-lg hover:cursor-pointer hover:opacity-80 container mx-auto'>      
+           <span onClick={() => handleClick(b.Bname, b._id)} className="inline-block w-full sm:w-3/5">{b.Bname}</span>  
+       <div className="  flex justify-center gap-20  xs:justify-between xs:gap-8">   <button className= "   hover:bg-green-700 bg-green-200   p-2 rounded-full" onClick={() => handledit(b._id, b.Bname)}><TbEditCircle className="text-green-700 hover:text-green-200"  size={30}  /></button>
+          <button className="hover:bg-red-700 bg-red-200     p-2 rounded-full " onClick={() => deletebuilding(b._id)}><RiDeleteBin5Line className="text-red-700 hover:text-red-200"  size={30} /></button>
+          </div> </div>
       ))}
          {dalert && (
     <div className="text-center mt-4 text-red-200 font-semibold">

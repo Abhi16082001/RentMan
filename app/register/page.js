@@ -2,6 +2,7 @@
 import React from 'react'
 import { useState} from "react";
 import Link from 'next/link';
+import { IoPersonAdd } from "react-icons/io5";
 export default function Page() {
 
  
@@ -67,8 +68,9 @@ export default function Page() {
         required type="text" name="pwd" id="pwd" onChange={onchange} />
         <br /> 
         <button 
-        className="w-full mt-4 p-3  text-blue-200 border-2 border-blue-500 bg-blue-600 bg-opacity-20 font-semibold rounded-full hover:bg-blue-700 hover:text-blue-50 transition duration-300"
-         onClick={adduser}>Register</button>
+        className=" flex justify-center items-center gap-2 w-full mt-4 p-3  text-blue-200 border-2 border-blue-500 bg-blue-600 bg-opacity-20 font-semibold rounded-full hover:bg-blue-700 hover:text-blue-50 transition duration-300"
+         onClick={adduser}> <IoPersonAdd  size={30} />
+         Register</button>
       </form>
       </div>
       {alert && (

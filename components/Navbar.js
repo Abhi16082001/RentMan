@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-
+import { TbLogout2 } from "react-icons/tb";
 const Navbar = () => {
 
   return (
@@ -12,7 +12,8 @@ const Navbar = () => {
        <span className='text-purple-700 font-bold'>Man</span>
        </div>
 
-      <Link  href="/" className='font-semibold text-purple-900 bg-purple-200 p-2 rounded-md hover:cursor-pointer hover:bg-purple-300'>
+      <Link  href="/" className=' flex justify-center gap-1 font-semibold text-purple-900 bg-purple-200 p-2 rounded-md hover:cursor-pointer hover:bg-purple-300'>
+      <TbLogout2 size={25} />
         Log Out
       </Link>
     </div>

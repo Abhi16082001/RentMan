@@ -4,6 +4,11 @@ import { Suspense } from 'react';
 import { useState, useEffect } from "react";
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
+import { MdDelete } from "react-icons/md";
+import { SiLevelsdotfyi } from "react-icons/si";
+import { IoIosPerson } from "react-icons/io";
+import { RiUserAddFill } from "react-icons/ri";
+import { RiAddCircleFill } from "react-icons/ri";
 export default function Page() {
   const router = useRouter();
   // <Suspense fallback={<div>Loading...</div>}>
@@ -196,12 +201,15 @@ console.error('Error:',error);
 
 
       <div className="container w-11/12 lg:w-3/5 mx-auto p-4 space-y-3 rounded-md shadow-lg bg-indigo-200 bg-opacity-50">
-<div className="flex justify-center font-extrabold font-mono text-xl text-indigo-100"> <h1>All Floors with Renters in Building</h1></div>
+<div className="flex justify-center gap-2 font-extrabold font-mono text-xl text-indigo-100"> 
+<SiLevelsdotfyi size={25}/>
+  <h1>All Floors with Renters in Building</h1></div>
     {rent.map(r=>{
    return <div className='space-y-2 sm:space-y-3 text-lime-950 text-lg font-semibold bg-gradient-to-r from-purple-300 to-gray-250 rounded-md p-4 shadow-lg hover:cursor-pointer hover:opacity-80 container mx-auto' 
-   key={r.floor}><span className="inline-block w-full sm:w-4/5" onClick={() => handleClick(r.uname,r.floor,r.uid)} >The Renter {r.uid}: {r.uname} lives in  {r.floor}.</span> 
-   <button className="hover:bg-red-700 text-white transition duration-300  w-full sm:w-1/5  py-0 sm:py-1.5 rounded-full bg-red-500 "
-    onClick={() => deletefloor(r.uname,r.floor,r.uid)}>Delete</button> </div> 
+   key={r.floor}><span className="inline-block w-full sm:w-4/5" onClick={() => handleClick(r.uname,r.floor,r.uid)} > <IoIosPerson size={25}/> {r.uid}: {r.uname} {`-->`}  {r.floor}.</span> 
+   <button className="hover:bg-red-200 transition duration-300  w-full sm:w-1/5  py-1.5 rounded-full bg-red-300 "
+    onClick={() => deletefloor(r.uname,r.floor,r.uid)}> <MdDelete className='hover:text-red-500 text-red-700' style={{ margin: 'auto', display: 'block' }} size={25} />
+</button> </div> 
   })}
   </div>
    {dalert && (
@@ -221,8 +229,9 @@ console.error('Error:',error);
        className=" w-full px-4 py-2 border border-purple-500 text-purple-50 bg-purple-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600"
        onChange={onchange} />
        <br />
-       <button className="w-full py-2 mt-4 border-2 border-purple-500 bg-purple-600 bg-opacity-20 text-purple-500 font-semibold rounded-full hover:bg-purple-700 hover:text-purple-50 transition duration-300"
-       onClick={addfloor}>Add Floor</button>  </form></> ):(
+       <button className="flex justify-center gap-2 w-full py-2 mt-4 border-2 border-purple-500 bg-purple-600 bg-opacity-20 text-purple-500 font-semibold rounded-full hover:bg-purple-700 hover:text-purple-50 transition duration-300"
+       onClick={addfloor}><RiAddCircleFill size={25} />
+        Add Floor</button>  </form></> ):(
         <>
         <form className="space-y-4">
             <label htmlFor="uname" className="block text-md font-semibold text-purple-500">Renter Name</label>
@@ -237,8 +246,10 @@ console.error('Error:',error);
             <input value={rentmodel?.pwd || ""} required type="text" name="pwd" id="pwd" placeholder='Create Renter Password'
             className=" w-full px-4 py-2 border border-purple-500 text-purple-50 bg-purple-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-600"
             onChange={onchange} />
-            <button  className="w-full py-2 mt-4 border-2 border-purple-500 bg-purple-600 bg-opacity-20 text-purple-500 font-semibold rounded-full hover:bg-purple-700 hover:text-purple-50 transition duration-300"
-            onClick={addrenter}>Add Renter</button>
+            <button  className=" flex justify-center gap-2 w-full py-2 mt-4 border-2 border-purple-500 bg-purple-600 bg-opacity-20 text-purple-500 font-semibold rounded-full hover:bg-purple-700 hover:text-purple-50 transition duration-300"
+            onClick={addrenter}>
+              <RiUserAddFill size={25} />
+              Add Renter</button>
             </form>
             </>
        )}</div>
