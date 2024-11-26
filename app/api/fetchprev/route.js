@@ -34,7 +34,7 @@ if (alluid.length === 0) {
   // If you only want the "month" field
   const latestMonth = latestRecord.month;
   console.log('Latest month:', latestMonth);
-  
+   
 
       return NextResponse.json({success:true,latestRecord})
     } finally {

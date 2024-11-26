@@ -126,8 +126,9 @@ export default function Page() {
             if (!response.ok) {
               throw new Error(`Error: ${response.statusText}`);
             }
-            const sd= await response.json()
-           if(sd.success){
+          
+            const data= await response.json()
+           if(data.success){
             const lrecord=data.latestRecord
             console.log('Fetched data:', lrecord);
             return lrecord;}
@@ -156,12 +157,18 @@ export default function Page() {
       };
 
       const handletotal = () => {
-        const rent= parseInt(dmodel.rent, 10);
-        const mfee= parseInt(dmodel.mfee, 10);
-        const pfee= parseInt(dmodel.pfee, 10);
-        const bill= parseInt(dmodel.bill, 10);
-        const wbill= parseInt(dmodel.wbill, 10);
+        let rent= parseInt(dmodel.rent, 10);
+        let mfee= parseInt(dmodel.mfee, 10);
+        let pfee= parseInt(dmodel.pfee, 10);
+        let bill= parseInt(dmodel.bill, 10);
+        let wbill= parseInt(dmodel.wbill, 10);
+        if(!rent){rent=0}
+        if(!mfee){mfee=0}
+        if(!pfee){pfee=0}
+        if(!bill){bill=0}
+        if(!wbill){wbill=0}
         const total=rent+mfee+pfee+bill+wbill
+        
         if(total===0 || !total){
           setdmodel({...dmodel,mtot:"0"})
         }
@@ -170,7 +177,8 @@ export default function Page() {
     
       const handlegtot = () => {
         const mtot= parseInt(dmodel.mtot, 10);
-        const bal= parseInt(dmodel.bal, 10);
+        let bal= parseInt(dmodel.bal, 10);
+        if(!bal){bal=0}
         const gtotal=mtot+bal
         if(gtotal===0 || !gtotal){
           setdmodel({...dmodel,gtot:"0"})
@@ -179,8 +187,10 @@ export default function Page() {
       };
       const handletopay = () => {
         const gtot= parseInt(dmodel.gtot, 10);
-        const paid= parseInt(dmodel.paid, 10);
+        let paid= parseInt(dmodel.paid, 10);
+        if(!paid){paid=0}
         const topay=gtot-paid
+        console.log(topay)
        if(topay===0 || !topay){
           setdmodel({...dmodel,topay:"0"})
         }
