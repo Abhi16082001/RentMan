@@ -120,12 +120,73 @@ export default function Page() {
         }
         }
 
+        const fetchData = async (uid) => {
+          try {
+            const response = await fetch(`/api/fetchprev?uid=${encodeURIComponent(uid)}`); // Replace with your API endpoint
+            if (!response.ok) {
+              throw new Error(`Error: ${response.statusText}`);
+            }
+            const sd= await response.json()
+           if(sd.success){
+            const lrecord=data.latestRecord
+            console.log('Fetched data:', lrecord);
+            return lrecord;}
+            else{return null}
+          } catch (error) {
+            console.log('Error fetching data:', error);
+
+          }
+        };
+
+        const handleFetch = async (uid) => {
+          const data = await fetchData(uid);
+          if(data){
+          setdmodel({...dmodel, rent:data.rent,mfee:data.mfee,pfee:data.pfee,bal:data.topay,wbill:data.wbill})
+          }
+          else{
+            setdmodel({...dmodel, rent:"0",mfee:"0",pfee:"0",bal:"0",wbill:"0"})
+          }
+          // console.log('Data received:', pdata);
+        };
+
       const handleClick = (mdt) => {
         const obj = mdt;
         const encodedObj = encodeURIComponent(JSON.stringify(obj));
         router.push(`/rdetails?mobj=${encodedObj}`);
       };
+
+      const handletotal = () => {
+        const rent= parseInt(dmodel.rent, 10);
+        const mfee= parseInt(dmodel.mfee, 10);
+        const pfee= parseInt(dmodel.pfee, 10);
+        const bill= parseInt(dmodel.bill, 10);
+        const wbill= parseInt(dmodel.wbill, 10);
+        const total=rent+mfee+pfee+bill+wbill
+        if(total===0 || !total){
+          setdmodel({...dmodel,mtot:"0"})
+        }
+       else{ setdmodel({...dmodel,mtot:total})}
+      };
     
+      const handlegtot = () => {
+        const mtot= parseInt(dmodel.mtot, 10);
+        const bal= parseInt(dmodel.bal, 10);
+        const gtotal=mtot+bal
+        if(gtotal===0 || !gtotal){
+          setdmodel({...dmodel,gtot:"0"})
+        }
+       else{ setdmodel({...dmodel,gtot:gtotal})}
+      };
+      const handletopay = () => {
+        const gtot= parseInt(dmodel.gtot, 10);
+        const paid= parseInt(dmodel.paid, 10);
+        const topay=gtot-paid
+       if(topay===0 || !topay){
+          setdmodel({...dmodel,topay:"0"})
+        }
+       else{ setdmodel({...dmodel,topay:topay})}
+      };
+
     //   const handladdm = (mdt) => {
     //     const obj = { Bid:drobj.Bid, Rname:drobj.Rname,floor:drobj.floor };
     //     const encodedObj = encodeURIComponent(JSON.stringify(obj));
@@ -192,22 +253,15 @@ export default function Page() {
   )} 
 
       <div className="container w-11/12 lg:w-3/5 mx-auto  border-2 border-sky-500 space-y-3 p-6 rounded-lg shadow-lg">
-      <div className="flex justify-center font-extrabold bg-blue-500 bg-opacity-55 rounded-xl p-2 font-mono text-xl text-blue-400"><h1>Add New Month Details </h1></div>
+      <div className="flex justify-center font-extrabold bg-blue-500 bg-opacity-55 rounded-xl p-2 font-mono text-xl text-blue-400"><h1 className='text-center'>Add New Month Details </h1></div>
       <form className="space-y-4">
        <label  className="block text-md font-semibold text-sky-500" htmlFor="month">Select Month and Year:</label>
        <input value={dmodel?.month || ""} type="month" id="month" name="month" 
        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-25 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
        onChange={onchanger} />
+       <div className='space-y-4 border-2 border-sky-300 p-4 rounded-2xl'>
         <label  className="block text-md font-semibold text-sky-500" htmlFor="rent">Monthly Rent: </label>
         <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent" 
-        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
-        onChange={onchanger} />
-        <label  className="block text-md font-semibold text-sky-500" htmlFor="bill">Electricity Bill:</label>
-        <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill" 
-        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
-        onChange={onchanger} />
-        <label  className="block text-md font-semibold text-sky-500" htmlFor="wbill">Water Bill:</label>
-        <input value={dmodel?.wbill || ""} required type="text" name="wbill" id="wbill" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
         <label  className="block text-md font-semibold text-sky-500" htmlFor="mfee">Maid Fee:</label>
@@ -218,15 +272,27 @@ export default function Page() {
         <input value={dmodel?.pfee || ""} required type="text" name="pfee" id="pfee" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
-        <label  className="block text-md font-semibold text-sky-500" htmlFor="mtot">Monthly Total:</label>
-        <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot" 
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="wbill">Water Bill:</label>
+        <input value={dmodel?.wbill || ""} required type="text" name="wbill" id="wbill" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
         <label  className="block text-md font-semibold text-sky-500" htmlFor="bal">Previous Balance:</label>
         <input value={dmodel?.bal || ""} required type="text" name="bal" id="bal" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
-        <label  className="block text-md font-semibold text-sky-500" htmlFor="gtot">Grand Total:</label>
+        <p className='bg-sky-500 bg-opacity-80 text-sky-50 hover:bg-sky-700 hover:cursor-pointer inline-block w-full text-center rounded-md p-1' onClick={() =>handleFetch(drobj.uid)}>Fetch Previous Details</p>
+        </div>
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="bill">Electricity Bill:</label>
+        <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500 gap-2" htmlFor="mtot"> 
+        <p className=' text-center bg-cyan-500 bg-opacity-80 hover:bg-sky-700 hover:cursor-pointer  p-2 rounded-md text-sky-50' onClick={() =>handletotal()}> Calculate Monthly Total :</p></label>
+        <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="gtot">
+        <p className=' text-center bg-cyan-500 hover:bg-sky-700 hover:cursor-pointer  bg-opacity-80 p-2 rounded-md text-sky-50' onClick={() =>handlegtot()}> Calculate Grand Total :</p></label>
         <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
@@ -238,7 +304,8 @@ export default function Page() {
         <input value={dmodel?.pddt || ""} required type="text" name="pddt" id="pddt" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
-        <label  className="block text-md font-semibold text-sky-500" htmlFor="topay">Current Balance to pay: </label>
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="topay">
+        <p className=' text-center bg-cyan-500  hover:bg-sky-700 hover:cursor-pointer  bg-opacity-80 p-2 rounded-md text-sky-50' onClick={() =>handletopay()}> Calculate Current Balance Amount To pay :</p></label>
         <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />

@@ -3,6 +3,7 @@ import React from 'react'
 import { useSearchParams } from 'next/navigation';
 import { useState,useEffect} from 'react';
 import { Suspense } from 'react';
+import { MdSecurityUpdate } from "react-icons/md";
 export default function Page() {
   // <Suspense fallback={<div>Loading...</div>}>
   //   const searchParams = useSearchParams();
@@ -66,6 +67,41 @@ export default function Page() {
         }
 
     }
+
+
+
+    const handletotal = () => {
+      const rent= parseInt(dmodel.rent, 10);
+      const mfee= parseInt(dmodel.mfee, 10);
+      const pfee= parseInt(dmodel.pfee, 10);
+      const bill= parseInt(dmodel.bill, 10);
+      const wbill= parseInt(dmodel.wbill, 10);
+      const total=rent+mfee+pfee+bill+wbill
+      if(total===0 || !total){
+        setdmodel({...dmodel,mtot:"0"})
+      }
+     else{ setdmodel({...dmodel,mtot:total})}
+    };
+  
+    const handlegtot = () => {
+      const mtot= parseInt(dmodel.mtot, 10);
+      const bal= parseInt(dmodel.bal, 10);
+      const gtotal=mtot+bal
+      if(gtotal===0 || !gtotal){
+        setdmodel({...dmodel,gtot:"0"})
+      }
+     else{ setdmodel({...dmodel,gtot:gtotal})}
+    };
+    const handletopay = () => {
+      const gtot= parseInt(dmodel.gtot, 10);
+      const paid= parseInt(dmodel.paid, 10);
+      const topay=gtot-paid
+     if(topay===0 || !topay){
+        setdmodel({...dmodel,topay:"0"})
+      }
+     else{ setdmodel({...dmodel,topay:topay})}
+    };
+
     
 
 return (
@@ -84,7 +120,7 @@ return (
 
 
   <div className="container w-11/12 lg:w-3/5 mx-auto  border-2 border-emerald-500 space-y-3 p-6 rounded-lg shadow-lg">
-      <div className="flex justify-center font-extrabold bg-emerald-500 bg-opacity-25 rounded-xl p-2 font-mono text-xl text-blue-200"><h1>Edit Month Details </h1></div>
+      <div className="flex justify-center font-extrabold bg-emerald-500 bg-opacity-25 rounded-xl p-2 font-mono text-xl text-blue-200"><h1 className='text-center'>Edit Month Details </h1></div>
     <form className='space-y-4'>
   
         <label  className="block text-md font-semibold text-emerald-500" 
@@ -98,7 +134,7 @@ return (
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
         <label  className="block text-md font-semibold text-emerald-500" 
-        htmlFor="bill">Bill:</label>
+        htmlFor="bill">Electricity Bill:</label>
         <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
@@ -118,7 +154,8 @@ return (
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
         <label  className="block text-md font-semibold text-emerald-500" 
-        htmlFor="mtot">Monthly Total:</label>
+        htmlFor="mtot">
+          <p className=' text-center bg-emerald-500 bg-opacity-50 hover:bg-emerald-700 hover:cursor-pointer  p-2 rounded-full text-emerald-50' onClick={() =>handletotal()}> Calculate Monthly Total :</p></label>
         <input value={dmodel?.mtot || ""} required type="text" name="mtot" id="mtot"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
@@ -128,7 +165,8 @@ return (
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
         <label  className="block text-md font-semibold text-emerald-500" 
-        htmlFor="gtot">Grand Total:</label>
+        htmlFor="gtot">
+        <p className=' text-center bg-emerald-500 hover:bg-emerald-700 hover:cursor-pointer  bg-opacity-50 p-2 rounded-full text-emerald-50' onClick={() =>handlegtot()}> Calculate Grand Total :</p></label>
         <input value={dmodel?.gtot || ""} required type="text" name="gtot" id="gtot"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
@@ -143,13 +181,16 @@ return (
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
         <label  className="block text-md font-semibold text-emerald-500" 
-        htmlFor="topay">Current Balance to pay: </label>
+        htmlFor="topay">
+        <p className=' text-center bg-emerald-500  hover:bg-emerald-700 hover:cursor-pointer  bg-opacity-50 p-2 rounded-full text-emerald-50' onClick={() =>handletopay()}> Calculate Current Balance Amount To pay :</p></label>
         <input value={dmodel?.topay || ""} required type="text" name="topay" id="topay"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
         <br /> 
-        <button className="w-full py-2 mt-4  bg-emerald-500 bg-opacity-80 text-white font-semibold rounded-full hover:bg-emerald-700  transition duration-300"
-         onClick={updatedetials}>Update Details</button>
+        <button className="w-full flex justify-center gap-2  py-2 mt-4  bg-emerald-500  text-white font-semibold rounded-md hover:bg-emerald-700  transition duration-300"
+         onClick={updatedetials}>
+          <MdSecurityUpdate size={25}/>
+          Update Details</button>
       </form>
       </div>
       <div className="text-green-600 text-center">{alert}</div>

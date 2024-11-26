@@ -1,6 +1,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { BsFillBuildingsFill } from "react-icons/bs";
 import { TbLogout2 } from "react-icons/tb";
 const Navbar = () => {
 
@@ -11,7 +12,7 @@ const Navbar = () => {
        <span className='text-gray'>R∉nt</span>
        <span className='text-purple-700 font-bold'>Man</span>
        </div>
-
+       <BsFillBuildingsFill size={30} />
       <Link  href="/" className=' flex justify-center gap-1 font-semibold text-purple-900 bg-purple-200 p-2 rounded-md hover:cursor-pointer hover:bg-purple-300'>
       <TbLogout2 size={25} />
         Log Out

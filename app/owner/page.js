@@ -9,6 +9,7 @@ import { BsBuildingFillAdd } from "react-icons/bs";
 import { BsFillBuildingsFill } from "react-icons/bs";
 
 
+
 export default function Page() {
   const router = useRouter();
   const [bid, setbid] = useState({});
@@ -113,7 +114,7 @@ export default function Page() {
     <button className=" w-full flex justify-center gap-2  p-2 border-2 border-blue-500 bg-blue-500 bg-opacity-10  rounded-full font-semibold text-blue-500  hover:bg-blue-700 hover:text-blue-50 " onClick={() => chncred(bid)}>
     <TbPasswordUser size={30} />
       Change Credentials
-    </button>
+    </button> 
   </div>
 </div>  
  

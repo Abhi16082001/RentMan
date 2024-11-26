@@ -3,6 +3,7 @@ import React from 'react'
 import { useState} from "react";
 import Link from 'next/link';
 import { IoPersonAdd } from "react-icons/io5";
+import { RiUserShared2Fill } from "react-icons/ri";
 export default function Page() {
 
  
@@ -80,7 +81,9 @@ export default function Page() {
   )}
      <div className='container w-11/12 sm:w-3/5 mx-auto bg-blue-300 bg-opacity-50 p-5 rounded-md flex flex-col'>
       <div className='font-bold text-xl text-center text-blue-50'>Already Registered? </div>
-      <Link className='bg-cyan-500 rounded-md font-bold text-cyan-950 hover:cursor-pointer hover:bg-cyan-400 text-xl p-3 text-center'  href="/"> Login Here</Link>
+      <Link className='bg-cyan-500 flex justify-center gap-2  rounded-md font-bold text-cyan-950 hover:cursor-pointer hover:bg-cyan-400 text-xl p-3 text-center'  href="/">
+      <RiUserShared2Fill size={30}/>
+       Login Here</Link>
       </div>
       </div>
   </>

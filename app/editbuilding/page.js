@@ -2,6 +2,7 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation';
 import { useState,Suspense,useEffect} from 'react';
+import { PiBuildingsFill } from "react-icons/pi";
 export default function Page()  {
   // <Suspense fallback={<div>Loading...</div>}>
   //   const searchParams = useSearchParams();
@@ -54,7 +55,7 @@ export default function Page()  {
       </Suspense>
       <div className="py-5 my-5  space-y-4 ">
       <div className="container w-11/12 lg:w-3/5 mx-auto border-2 border-indigo-500  p-6 rounded-lg shadow-lg">
-      <div className='text-center text-indigo-500 font-bold text-xl'> <h1>Edit the building:</h1> </div>
+      <div className='text-center text-indigo-500 font-bold text-xl'> <h1 className='text-center'>Edit the building:</h1> </div>
     <form className="space-y-4">
         <label htmlFor="Bname" className="block text-md font-semibold text-indigo-500">Building Name</label>
         <input value={bldmodel?.Bname || ""} required type="text" name="Bname" id="Bname" placeholder='Enter New Building Name'
@@ -62,8 +63,10 @@ export default function Page()  {
          onChange={onchange} />
         
         <br /> 
-        <button className="w-full py-2 mt-4 border-2 border-indigo-500 bg-indigo-600 bg-opacity-20 text-indigo-500 font-semibold rounded-full hover:bg-indigo-700 hover:text-indigo-50 transition duration-300"
-        onClick={updatebuilding}>Update</button>
+        <button className="w-full flex justify-center gap-2  py-2 mt-4 border-2 border-indigo-500 bg-indigo-600 bg-opacity-20 text-indigo-500 font-semibold rounded-full hover:bg-indigo-700 hover:text-indigo-50 transition duration-300"
+        onClick={updatebuilding}>
+          <PiBuildingsFill size={25}/>
+          Update Building</button>
       </form>
       </div>
       {alert && (

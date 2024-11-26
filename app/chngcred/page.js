@@ -2,6 +2,8 @@
 import React from 'react'
 import { useSearchParams } from 'next/navigation';
 import { useState,Suspense,useEffect} from 'react';
+
+import { TbPasswordUser } from "react-icons/tb";
 export default function Page()  {
 
 
@@ -74,8 +76,10 @@ export default function Page()  {
         className="w-full p-3  text-blue-50 border-2 border-blue-500 bg-blue-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600"
         onChange={onchange} />
         <br /> 
-        <button className="w-full mt-4 p-3  text-blue-200 border-2 border-blue-500 bg-blue-600 bg-opacity-20 font-semibold rounded-full hover:bg-blue-700 hover:text-blue-50 transition duration-300"
-         onClick={chnguser}>Change Credentials</button>
+        <button className="w-full flex justify-center gap-2  mt-4 p-3  text-blue-200 border-2 border-blue-500 bg-blue-600 bg-opacity-20 font-semibold rounded-full hover:bg-blue-700 hover:text-blue-50 transition duration-300"
+         onClick={chnguser}>
+          <TbPasswordUser size={30} />
+          Change Credentials</button>
       </form>
 </div>
       </>):(<>
@@ -86,8 +90,10 @@ export default function Page()  {
         className="w-full p-3  text-blue-50 border-2 border-blue-500 bg-blue-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-600"
         onChange={onchange} />
         <br /> 
-        <button className="w-full mt-4 p-3  text-blue-200 border-2 border-blue-500 bg-blue-600 bg-opacity-20 font-semibold rounded-full hover:bg-blue-700 hover:text-blue-50 transition duration-300"
-         onClick={chnguser}>Change Password</button>
+        <button className="w-full flex justify-center gap-2  mt-4 p-3  text-blue-200 border-2 border-blue-500 bg-blue-600 bg-opacity-20 font-semibold rounded-full hover:bg-blue-700 hover:text-blue-50 transition duration-300"
+         onClick={chnguser}>
+          <TbPasswordUser size={30} />
+          Change Password</button>
       </form>
 </div>
       </>)):"Loading"}</div>

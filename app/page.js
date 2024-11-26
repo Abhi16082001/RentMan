@@ -4,7 +4,7 @@ import { useState,useEffect} from "react";
 import Link from 'next/link';
 import { RiLoginCircleLine } from "react-icons/ri";
 import { useRouter } from 'next/navigation';
-
+import { ImUserPlus } from "react-icons/im";  
 export default function Page() {
   const router = useRouter();
     const [umodel, setumodel] = useState(null)
@@ -88,7 +88,9 @@ Log In
 
   <div className='container w-11/12 sm:w-3/5 mx-auto bg-blue-300 bg-opacity-50 p-5 rounded-md flex flex-col'>
       <div className='font-bold text-xl text-center text-cyan-50'>Not Registered? </div>
-      <Link className='bg-blue-500 rounded-md font-bold text-blue-950 hover:cursor-pointer hover:bg-blue-400 text-xl p-3 text-center'  href="/register"> Register Here</Link>
+      <Link className='bg-blue-500 flex justify-center gap-2  rounded-md font-bold text-blue-950 hover:cursor-pointer hover:bg-blue-400 text-xl p-3 text-center'  href="/register"> 
+      <ImUserPlus size={30}/>
+      Register Here</Link>
       </div>
       </div>
   </>
