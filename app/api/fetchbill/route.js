@@ -4,7 +4,8 @@ import getClient from "@/lib/mongodb";
 export async function GET(request) {
  
     const { searchParams } = new URL(request.url);
-    const id = searchParams.get('uid');
+    const meter = searchParams.get('meter');
+    const mnth = searchParams.get('month');
   // Replace the uri string with your connection string.
   const client = await getClient();
     try {
@@ -12,30 +13,30 @@ export async function GET(request) {
       const rntrs = database.collection('renters');
       // Query for a movie that has the title 'Back to the Future'
       // const query = { title: 'Back to the Future' };
-      const query = { "uid": id, };
-      const alluid = await rntrs.find(query).toArray();
+      const query = { "month": mnth,"emtr":meter,"issub":true };
+      const alluid = await rntrs.findOne(query);
       
 
 
-if (alluid.length === 0) {
+if (!alluid) {
     console.log('No records found for the given user ID.');
     return NextResponse.json({success:false}) // Handle the case where no records are found
   }
   
   // Sort the records by the "month" field in descending order
-  const sortedRecords = alluid.sort((a, b) => b.month.localeCompare(a.month));
+
   
   // Get the latest record
-  const latestRecord = sortedRecords[0]; // The first record after sorting is the latest
+ 
   
-  console.log('Latest record:', latestRecord);
+  console.log('Other side bill record:', alluid);
   
   // If you only want the "month" field
-  const latestMonth = latestRecord.month;
-  console.log('Latest month:', latestMonth);
+  const ebill = alluid.bill;
+  console.log('Ebill of other side:', ebill);
    
 
-      return NextResponse.json({success:true,latestRecord})
+      return NextResponse.json({success:true,ebill})
     } finally {
       // Ensures that the client will close when you finish/error
       // await client.close();

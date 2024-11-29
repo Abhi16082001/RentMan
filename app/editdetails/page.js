@@ -70,6 +70,60 @@ export default function Page() {
 
 
 
+    const handledrop = (event) => {
+      const value = event.target.value === "true"; // Convert string "true"/"false" to a boolean
+      setdmodel({...dmodel,[event.target.name]:value})
+    };
+
+    const calbill = async (mtr,mnth) => {
+      setdmodel({...dmodel,bill:"Calculating..."})
+      let pread= parseInt(dmodel.pread, 10);
+      let cread= parseInt(dmodel.cread, 10);
+      let rate= parseInt(dmodel.rate, 10);
+      let bses= parseInt(dmodel.bsesbill, 10);
+     
+      let ebill=0
+if(!pread){ pread=0}
+if(!cread){ cread=0}
+if(!rate){ rate=0}
+if(!bses){ bses=0}
+if(dmodel.issub){
+console.log(pread,cread,rate)
+ebill=(cread-pread)*rate
+}
+else{
+const obill = await fetchbill(mtr,mnth);
+console.log(obill)
+if(obill){
+  ebill=bses-obill
+}
+else{
+ebill=bses
+}
+}
+setdmodel({...dmodel,bill:ebill})
+    };
+
+    const fetchbill = async (mtr,mnth) => {
+      try {
+        const response = await fetch(`/api/fetchbill?meter=${encodeURIComponent(mtr)}&month=${encodeURIComponent(mnth)}`); // Replace with your API endpoint
+        if (!response.ok) {
+          throw new Error(`Error: ${response.statusText}`);
+        }
+      
+        const data= await response.json()
+       if(data.success){
+        const ebill=data.ebill
+        console.log('Fetched bill:', ebill);
+        return ebill;}
+        else{return null}
+      } catch (error) {
+        console.log('Error fetching data:', error);
+
+      }
+    };
+
+
     const handletotal = () => {
       let rent= parseInt(dmodel.rent, 10);
       let mfee= parseInt(dmodel.mfee, 10);
@@ -141,8 +195,44 @@ return (
         <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
-        <label  className="block text-md font-semibold text-emerald-500" 
-        htmlFor="bill">Electricity Bill:</label>
+
+<label  className="block text-md font-semibold text-emerald-500" htmlFor="emtr">Electricity Meter No.: </label>
+        <input value={dmodel?.emtr || ""} required type="text" name="emtr" id="emtr" 
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        onChange={onchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" htmlFor="emtr">Is Sub-meter installed: </label>
+       <select  name="issub" id="issub" value={dmodel?.issub !== null ? String(dmodel?.issub) : ""}  onChange={handledrop}
+        className="border-2 border-emerald-500 text-emerald-500 bg-emerald-400 bg-opacity-25 rounded-full p-2" >
+        <option  value="">Select Yes or No</option>
+        <option value="true">Yes</option>
+        <option value="false">No</option>
+      </select>
+      {dmodel?.issub? (<>
+        <label  className="block text-md font-semibold text-emerald-500" htmlFor="pread">Sub-meter previous reading:</label>
+        <input value={dmodel?.pread || ""} required type="text" name="pread" id="pread" 
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        onChange={onchanger} />
+       
+        <label  className="block text-md font-semibold text-emerald-500" htmlFor="rate">{`Rate[Rs. per unit]`}:</label>
+        <input value={dmodel?.rate || ""} required type="text" name="rate" id="rate" 
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        onChange={onchanger} />
+      </>): (<>
+      </>) }
+
+      {dmodel?.issub?(<> 
+         <label  className="block text-md font-semibold text-emerald-500" htmlFor="cread">Sub-meter current reading:</label>
+        <input value={dmodel?.cread || ""} required type="text" name="cread" id="cread" 
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        onChange={onchanger} /></>):(<>
+  <label  className="block text-md font-semibold text-emerald-500" htmlFor="bsesbill">Electricity Meter bill by BSES:</label>
+        <input value={dmodel?.bsesbill || ""} required type="text" name="bsesbill" id="bsesbill" 
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        onChange={onchanger} />
+        </>)}
+
+        <label  className="block text-md font-semibold text-emerald-500" htmlFor="bill">
+        <p className='  text-center bg-emerald-500 bg-opacity-50 hover:bg-emerald-700 hover:cursor-pointer  p-2 rounded-full text-emerald-50' onClick={() =>calbill(dmodel.emtr,dmodel.month)}> Calculate Renters's Electricity Bill:</p></label>
         <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />
