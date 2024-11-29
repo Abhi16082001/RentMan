@@ -69,7 +69,7 @@ export default function Page() {
             }
       
             console.log(data.message); // Log success message
-            setdalert(` Renter's Month Details deleted successfully.`)
+            setdalert(` Renter Month Details deleted successfully.`)
         } catch (erro) {
             console.log('Error:', erro);
         }
@@ -380,7 +380,7 @@ setdmodel({...dmodel,bill:ebill})
         onChange={onchanger} />
         </>)}
         <label  className="block text-md font-semibold text-sky-500" htmlFor="bill">
-        <p className=' text-center bg-cyan-500 bg-opacity-80 hover:bg-sky-700 hover:cursor-pointer  p-2 rounded-md text-sky-50' onClick={() =>calbill(dmodel.emtr,dmodel.month)}> Calculate Renters's Electricity Bill:</p></label>
+        <p className=' text-center bg-cyan-500 bg-opacity-80 hover:bg-sky-700 hover:cursor-pointer  p-2 rounded-md text-sky-50' onClick={() =>calbill(dmodel.emtr,dmodel.month)}> Calculate Renter Electricity Bill:</p></label>
         <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
