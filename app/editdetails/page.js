@@ -75,7 +75,7 @@ export default function Page() {
       setdmodel({...dmodel,[event.target.name]:value})
     };
 
-    const calbill = async (mtr,mnth) => {
+    const calbill = async (mtr,mnth,uid) => {
       setdmodel({...dmodel,bill:"Calculating..."})
       let pread= parseInt(dmodel.pread, 10);
       let cread= parseInt(dmodel.cread, 10);
@@ -92,7 +92,7 @@ console.log(pread,cread,rate)
 ebill=(cread-pread)*rate
 }
 else{
-const obill = await fetchbill(mtr,mnth);
+const obill = await fetchbill(mtr,mnth,uid);
 console.log(obill)
 if(obill){
   ebill=bses-obill
@@ -104,9 +104,9 @@ ebill=bses
 setdmodel({...dmodel,bill:ebill})
     };
 
-    const fetchbill = async (mtr,mnth) => {
+    const fetchbill = async (mtr,mnth,uid) => {
       try {
-        const response = await fetch(`/api/fetchbill?meter=${encodeURIComponent(mtr)}&month=${encodeURIComponent(mnth)}`); // Replace with your API endpoint
+        const response = await fetch(`/api/fetchbill?meter=${encodeURIComponent(mtr)}&month=${encodeURIComponent(mnth)}&id=${encodeURIComponent(uid)}`); // Replace with your API endpoint
         if (!response.ok) {
           throw new Error(`Error: ${response.statusText}`);
         }
@@ -232,7 +232,7 @@ return (
         </>)}
 
         <label  className="block text-md font-semibold text-emerald-500" htmlFor="bill">
-        <p className='  text-center bg-emerald-500 bg-opacity-50 hover:bg-emerald-700 hover:cursor-pointer  p-2 rounded-full text-emerald-50' onClick={() =>calbill(dmodel.emtr,dmodel.month)}> Calculate Renter Electricity Bill:</p></label>
+        <p className='  text-center bg-emerald-500 bg-opacity-50 hover:bg-emerald-700 hover:cursor-pointer  p-2 rounded-full text-emerald-50' onClick={() =>calbill(dmodel.emtr,dmodel.month,dmodel.uid)}> Calculate Renter Electricity Bill:</p></label>
         <input value={dmodel?.bill || ""} required type="text" name="bill" id="bill"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
          onChange={onchanger} />

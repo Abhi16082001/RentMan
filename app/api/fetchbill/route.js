@@ -6,6 +6,7 @@ export async function GET(request) {
     const { searchParams } = new URL(request.url);
     const meter = searchParams.get('meter');
     const mnth = searchParams.get('month');
+    const uid = searchParams.get('id');
   // Replace the uri string with your connection string.
   const client = await getClient();
     try {
@@ -13,7 +14,8 @@ export async function GET(request) {
       const rntrs = database.collection('renters');
       // Query for a movie that has the title 'Back to the Future'
       // const query = { title: 'Back to the Future' };
-      const query = { "month": mnth,"emtr":meter,"issub":true };
+      console.log("yaha ki uid: ",uid)
+      const query = { "month": mnth,"emtr":meter,"issub":true, "uid": { $ne: uid } };
       const alluid = await rntrs.findOne(query);
       
 
