@@ -191,6 +191,11 @@ return (
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
         onChange={onRchanger} />
         <label  className="block text-md font-semibold text-emerald-500" 
+        htmlFor="uname">Renter Move-in Date:</label>
+        <input value={dmodel?.rdate || ""} required type="text" name="uname" id="uname" 
+        className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"
+        onChange={onRchanger} />
+        <label  className="block text-md font-semibold text-emerald-500" 
         htmlFor="rent">Rent:</label>
         <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent"
         className=" w-full px-4 py-2 border border-emerald-500 text-emerald-50 bg-emerald-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-emerald-600"

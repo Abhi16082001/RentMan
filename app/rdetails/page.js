@@ -61,7 +61,8 @@ export default function Page() {
       <div className="flex justify-center font-extrabold underline font-mono text-xl text-indigo-100"> <h1 className='text-center'>All Details of Renter of Chosen Month </h1></div>
       <div className='bg-gradient-to-r from-indigo-400 to-rose-300 p-3 rounded-sm text-lg  font-semibold font-mono sm:flex flex-row  gap-20 md:gap-60'>
         <div><p>Renter ID: {dmobj?dmobj.uid: "Loading..."}</p>
-      <p>Renter Name: {dmobj?dmobj.uname: "Loading..."}</p></div>
+      <p>Renter Name: {dmobj?dmobj.uname: "Loading..."}</p>
+      <p>Renter Move-in Date: {dmobj?dmobj.rdate: "Loading..."} </p></div>
      <div> <p>Floor Name: {dmobj?dmobj.Bdetails.floor: "Loading..."}</p>
       <p>Month: {dmobj?dmobj.month: "Loading..."}</p></div>
       </div>

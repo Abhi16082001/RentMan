@@ -328,6 +328,10 @@ setdmodel({...dmodel,bill:ebill})
         <input value={dmodel?.rent || ""} required type="text" name="rent" id="rent" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
         onChange={onchanger} />
+        <label  className="block text-md font-semibold text-sky-500" htmlFor="rdate">Renter Move-in Date: </label>
+        <input value={dmodel?.rdate || ""} required type="text" name="rdate" id="rdate" 
+        className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
+        onChange={onchanger} />
         <label  className="block text-md font-semibold text-sky-500" htmlFor="emtr">E-Meter No.: </label>
         <input value={dmodel?.emtr || ""} required type="text" name="emtr" id="emtr" 
         className=" w-full px-4 py-2 border border-sky-500 text-sky-50 bg-sky-600 bg-opacity-5 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-600"
