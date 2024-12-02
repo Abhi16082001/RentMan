@@ -77,10 +77,10 @@ export default function Page() {
 
     const calbill = async (mtr,mnth,uid) => {
       setdmodel({...dmodel,bill:"Calculating..."})
-      let pread= parseInt(dmodel.pread, 10);
-      let cread= parseInt(dmodel.cread, 10);
-      let rate= parseInt(dmodel.rate, 10);
-      let bses= parseInt(dmodel.bsesbill, 10);
+      let pread= parseFloat(dmodel.pread);
+      let cread= parseFloat(dmodel.cread);
+      let rate= parseFloat(dmodel.rate);
+      let bses= parseFloat(dmodel.bsesbill);
      
       let ebill=0
 if(!pread){ pread=0}
@@ -94,8 +94,11 @@ ebill=(cread-pread)*rate
 else{
 const obill = await fetchbill(mtr,mnth,uid);
 console.log(obill)
-if(obill){
+if(obill && obill!=2){
   ebill=bses-obill
+}
+else if(obill==2){
+  ebill=bses/2
 }
 else{
 ebill=bses
@@ -116,6 +119,7 @@ setdmodel({...dmodel,bill:ebill})
         const ebill=data.ebill
         console.log('Fetched bill:', ebill);
         return ebill;}
+        else if(data.ok && !data.success){return 2;}
         else{return null}
       } catch (error) {
         console.log('Error fetching data:', error);
@@ -125,11 +129,11 @@ setdmodel({...dmodel,bill:ebill})
 
 
     const handletotal = () => {
-      let rent= parseInt(dmodel.rent, 10);
-      let mfee= parseInt(dmodel.mfee, 10);
-      let pfee= parseInt(dmodel.pfee, 10);
-      let bill= parseInt(dmodel.bill, 10);
-      let wbill= parseInt(dmodel.wbill, 10);
+      let rent= parseFloat(dmodel.rent);
+      let mfee= parseFloat(dmodel.mfee);
+      let pfee= parseFloat(dmodel.pfee);
+      let bill= parseFloat(dmodel.bill);
+      let wbill= parseFloat(dmodel.wbill);
       if(!rent){rent=0}
       if(!mfee){mfee=0}
       if(!pfee){pfee=0}
@@ -144,8 +148,8 @@ setdmodel({...dmodel,bill:ebill})
     };
   
     const handlegtot = () => {
-      const mtot= parseInt(dmodel.mtot, 10);
-      let bal= parseInt(dmodel.bal, 10);
+      const mtot= parseFloat(dmodel.mtot);
+      let bal= parseFloat(dmodel.bal);
       if(!bal){bal=0}
       const gtotal=mtot+bal
       if(gtotal===0 || !gtotal){
@@ -154,8 +158,8 @@ setdmodel({...dmodel,bill:ebill})
      else{ setdmodel({...dmodel,gtot:gtotal})}
     };
     const handletopay = () => {
-      const gtot= parseInt(dmodel.gtot, 10);
-      let paid= parseInt(dmodel.paid, 10);
+      const gtot= parseFloat(dmodel.gtot);
+      let paid= parseFloat(dmodel.paid);
       if(!paid){paid=0}
       const topay=gtot-paid
       console.log(topay)

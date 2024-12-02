@@ -21,8 +21,13 @@ export async function GET(request) {
 
 
 if (!alluid) {
+  const query2 = { "month": mnth,"emtr":meter,"issub":false, "uid": { $ne: uid } };
+  const allu = await rntrs.findOne(query2);
+  if(!allu){
     console.log('No records found for the given user ID.');
-    return NextResponse.json({success:false}) // Handle the case where no records are found
+    return NextResponse.json({success:false,ok:false}) // Handle the case where no records are found
+  }
+ return NextResponse.json({success:false,ok:true})
   }
   
   // Sort the records by the "month" field in descending order
@@ -38,7 +43,7 @@ if (!alluid) {
   console.log('Ebill of other side:', ebill);
    
 
-      return NextResponse.json({success:true,ebill})
+      return NextResponse.json({success:true,ok:true,ebill})
     } finally {
       // Ensures that the client will close when you finish/error
       // await client.close();
