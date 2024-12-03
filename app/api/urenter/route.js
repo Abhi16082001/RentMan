@@ -17,7 +17,7 @@ export async function GET(request) {
         // Query for a movie that has the title 'Back to the Future'
         // const query = { title: 'Back to the Future' };
         const mdtl = await bldngs.find(query).toArray();
-    
+        mdtl.sort((a, b) => new Date(b.month) - new Date(a.month));
         return NextResponse.json({success:true,mdtl})
       } finally {
         // Ensures that the client will close when you finish/error

@@ -57,9 +57,9 @@ export default function Page() {
 <Suspense fallback={<div>Loading...</div>}>
         <LoadParams setDbobj={setdmobj} />
       </Suspense>
-      <div className="container w-11/12 lg:w-3/5 mx-auto my-5 p-4 space-y-3 rounded-md shadow-lg bg-indigo-500 bg-opacity-50">
+      <div className="container w-11/12 lg:w-4/5 mx-auto my-5 p-4 space-y-3 rounded-md shadow-lg bg-indigo-500 bg-opacity-50">
       <div className="flex justify-center font-extrabold underline font-mono text-xl text-indigo-100"> <h1 className='text-center'>All Details of Renter of Chosen Month </h1></div>
-      <div className='bg-gradient-to-r from-indigo-400 to-rose-300 p-3 rounded-sm text-lg  font-semibold font-mono sm:flex flex-row  gap-20 md:gap-60'>
+      <div className='bg-gradient-to-r from-indigo-400 to-rose-300 p-3 rounded-sm text-lg  font-semibold font-mono sm:flex flex-row  gap-10 lg:gap-60'>
         <div><p>Renter ID: {dmobj?dmobj.uid: "Loading..."}</p>
       <p>Renter Name: {dmobj?dmobj.uname: "Loading..."}</p>
       <p>Renter Move-in Date: {dmobj?dmobj.rdate: "Loading..."} </p></div>
