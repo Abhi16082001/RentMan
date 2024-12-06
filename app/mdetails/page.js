@@ -47,7 +47,7 @@ export default function Page() {
         fetchmdetails(drobj.Bid,drobj.floor)}
         
       },
-      [drobj])
+      [dmodel])
 
 
       const mdelete = async (mid) => {
@@ -70,6 +70,7 @@ export default function Page() {
       
             console.log(data.message); // Log success message
             setdalert(` Renter Month Details deleted successfully.`)
+            setdmodel({})
         } catch (erro) {
             console.log('Error:', erro);
         }
