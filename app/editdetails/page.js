@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation';
 import { useState,useEffect} from 'react';
 import { Suspense } from 'react';
 import { MdSecurityUpdate } from "react-icons/md";
+import { evaluate } from 'mathjs';
 export default function Page() {
   // <Suspense fallback={<div>Loading...</div>}>
   //   const searchParams = useSearchParams();
@@ -75,37 +76,7 @@ export default function Page() {
       setdmodel({...dmodel,[event.target.name]:value})
     };
 
-    const calbill = async (mtr,mnth,uid) => {
-      setdmodel({...dmodel,bill:"Calculating..."})
-      let pread= parseFloat(dmodel.pread);
-      let cread= parseFloat(dmodel.cread);
-      let rate= parseFloat(dmodel.rate);
-      let bses= parseFloat(dmodel.bsesbill);
-     
-      let ebill=0
-if(!pread){ pread=0}
-if(!cread){ cread=0}
-if(!rate){ rate=0}
-if(!bses){ bses=0}
-if(dmodel.issub){
-console.log(pread,cread,rate)
-ebill=(cread-pread)*rate
-}
-else{
-const obill = await fetchbill(mtr,mnth,uid);
-console.log(obill)
-if(obill && obill!=2){
-  ebill=bses-obill
-}
-else if(obill==2){
-  ebill=bses/2
-}
-else{
-ebill=bses
-}
-}
-setdmodel({...dmodel,bill:ebill})
-    };
+   
 
     const fetchbill = async (mtr,mnth,uid) => {
       try {
@@ -128,47 +99,110 @@ setdmodel({...dmodel,bill:ebill})
     };
 
 
+    const calbill = async (mtr,mnth,uid) => {
+           setdmodel({...dmodel,bill:"Calculating..."})
+           
+           
+          
+           let ebill=0
+     
+     
+     if(dmodel.issub){
+       let pread= evaluate(dmodel.pread?dmodel.pread.toString():"0");
+           let cread= evaluate(dmodel.cread?dmodel.cread.toString():"0");
+           let rate= evaluate(dmodel.rate?dmodel.rate.toString():"0");
+           if(!pread||pread==""){ pread=0}
+     if(!cread||cread==""){ cread=0}
+     if(!rate||rate==""){ rate=0}
+     console.log(pread,cread,rate)
+     ebill=(cread-pread)*rate
+     
+     if( pread==0){pread="0"}
+     if( cread==0){cread="0"}
+     if( rate==0){rate="0"}
+     if(ebill==0){ebill="0"}
+     setdmodel({...dmodel,bill:ebill,pread:pread,cread:cread,rate:rate})
+     }
+     else{
+       let bses= evaluate(dmodel.bsesbill?dmodel.bsesbill.toString():"0");
+       if(!bses||bses==""){ bses=0}
+     const obill = await fetchbill(mtr,mnth,uid);
+     console.log(obill)
+     if(obill && obill!=2){
+       ebill=bses-obill
+       if( bses==0){bses="0"}
+       if(ebill==0){ebill="0"}
+       setdmodel({...dmodel,bill:ebill,bsesbill:bses})
+     }
+     else if(obill==2){
+       ebill=bses/2
+       if( bses==0){bses="0"}
+       if(ebill==0){ebill="0"}
+       setdmodel({...dmodel,bill:ebill,bsesbill:bses})
+     }
+     else{
+     ebill=bses
+     if( bses==0){bses="0"}
+     if(ebill==0){ebill="0"}
+     setdmodel({...dmodel,bill:ebill,bsesbill:bses})
+     }
+     
+     }
+     
+     
+         };
+   
+   
     const handletotal = () => {
-      let rent= parseFloat(dmodel.rent);
-      let mfee= parseFloat(dmodel.mfee);
-      let pfee= parseFloat(dmodel.pfee);
-      let bill= parseFloat(dmodel.bill);
-      let wbill= parseFloat(dmodel.wbill);
-      if(!rent){rent=0}
-      if(!mfee){mfee=0}
-      if(!pfee){pfee=0}
-      if(!bill){bill=0}
-      if(!wbill){wbill=0}
-      const total=rent+mfee+pfee+bill+wbill
-      
-      if(total===0 || !total){
-        setdmodel({...dmodel,mtot:"0"})
-      }
-     else{ setdmodel({...dmodel,mtot:total})}
-    };
-  
-    const handlegtot = () => {
-      const mtot= parseFloat(dmodel.mtot);
-      let bal= parseFloat(dmodel.bal);
-      if(!bal){bal=0}
-      const gtotal=mtot+bal
-      if(gtotal===0 || !gtotal){
-        setdmodel({...dmodel,gtot:"0"})
-      }
-     else{ setdmodel({...dmodel,gtot:gtotal})}
-    };
-    const handletopay = () => {
-      const gtot= parseFloat(dmodel.gtot);
-      let paid= parseFloat(dmodel.paid);
-      if(!paid){paid=0}
-      const topay=gtot-paid
-      console.log(topay)
-     if(topay===0 || !topay){
-        setdmodel({...dmodel,topay:"0"})
-      }
-     else{ setdmodel({...dmodel,topay:topay})}
-    };
-    
+         let rent= evaluate(dmodel.rent?dmodel.rent.toString():"0");
+         let mfee= evaluate(dmodel.mfee?dmodel.mfee.toString():"0");
+         let pfee= evaluate(dmodel.pfee?dmodel.pfee.toString():"0");
+         let bill= evaluate(dmodel.bill?dmodel.bill.toString():"0");
+         let wbill= evaluate(dmodel.wbill?dmodel.wbill.toString():"0");
+         if(!rent||rent===""){rent=0}
+         if(!mfee||mfee===""){mfee=0}
+         if(!pfee||pfee===""){pfee=0}
+         if(!bill||bill===""){bill=0}
+         if(!wbill || wbill===""){wbill=0}
+         const total=rent+mfee+pfee+bill+wbill
+        if(pfee==0) pfee="0"
+        if(wbill==0) wbill="0"
+        if(mfee==0) mfee="0"
+        if(rent==0) rent="0"
+        if(bill==0) bill="0"
+         if(total===0 || !total){
+           setdmodel({...dmodel,mtot:"0",rent:rent,mfee:mfee,pfee:pfee,bill:bill,wbill:wbill})
+         }
+        else{ setdmodel({...dmodel,mtot:total,rent:rent,mfee:mfee,pfee:pfee,bill:bill,wbill:wbill})}
+       };
+     
+       const handlegtot = () => {
+         let mtot= evaluate(dmodel.mtot?dmodel.mtot.toString():"0");
+         let bal= evaluate(dmodel.bal?dmodel.bal.toString():"0");
+         if(!bal||bal==""){bal=0}
+         
+         const gtotal=mtot+bal
+         if(mtot==0){mtot="0"}
+         if(bal==0){bal="0"}
+         if(gtotal===0 || !gtotal){
+           setdmodel({...dmodel,gtot:"0",mtot:mtot,bal:bal})
+         }
+        else{ setdmodel({...dmodel,gtot:gtotal,mtot:mtot,bal:bal})}
+       };
+       const handletopay = () => {
+         let gtot= evaluate(dmodel.gtot?dmodel.gtot.toString():"0");
+         let paid= evaluate(dmodel.paid?dmodel.paid.toString():"0");
+         if(!paid||paid==""){paid=0}
+         const topay=gtot-paid
+         if(gtot==0){gtot="0"}
+         if(paid==0){paid="0"}
+         console.log(topay)
+        if(topay===0 || !topay){
+           setdmodel({...dmodel,topay:"0",gtot:gtot,paid:paid})
+         }
+        else{ setdmodel({...dmodel,topay:topay,gtot:gtot,paid:paid})}
+       };
+       
 
 return (
     <>
