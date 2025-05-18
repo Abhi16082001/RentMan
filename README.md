@@ -1,5 +1,5 @@
 # Overview
-This is a Next.js project designed for managing **Renters** and **Floors** within an **Apartment** or **Building**. The core functionality has been implemented, but the application is currently unstyled (CSS and other design elements will be added in the future). Total 3 collections inside the Database are used to make this project possible.
+This is a Next.js project designed for managing **Renters** and **Floors** within an **Apartment** or **Building**. And **MongoDB** Database is used in this project. Total 3 collections inside the Database are used to make this project possible.
 
 # Features
 1. **Building and Floor Management**: 
