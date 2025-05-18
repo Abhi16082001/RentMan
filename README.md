@@ -13,8 +13,6 @@ This is a Next.js project designed for managing **Renters** and **Floors** withi
 4. **Login and Registeration System**:
    - On Registration Page, there will be owner registeration only but while creating floors, owner can create renter profiles and that will be stored in user database with owner flag false.
 
+This project is now complete, and I'm not planning further updates and if you want you can explore.
 
-The application’s backend functionality is complete, and you can explore the code for further details.
 
-Future Enhancements
-Styling and CSS will be added to improve the user interface and experience.
